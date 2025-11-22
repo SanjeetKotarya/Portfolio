@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SoZo: Product Design Case Study</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
     <style>
         /* --- CSS VARIABLES & RESET --- */
         :root {
@@ -35,7 +38,12 @@
             margin-top: 10px;
         }
 
-        h1, h2, h3, h4, h5, h6 {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
             font-family: 'Playfair Display', serif;
             font-weight: 600;
             line-height: 1.2;
@@ -66,11 +74,11 @@
             font-weight: bold;
         }
 
-        a { 
-            color: var(--text-main); 
-            text-decoration: none; 
+        a {
+            color: var(--text-main);
+            text-decoration: none;
         }
-        
+
         /* --- UTILITIES --- */
         .container {
             max-width: 1000px;
@@ -100,8 +108,6 @@
             width: 100%;
             height: auto;
             aspect-ratio: 16/9;
-            background: linear-gradient(135deg, #1c1c1c 0%, #161616 100%);
-            border: 2px dashed rgba(255, 255, 255, 0.15);
             border-radius: var(--border-radius);
             display: flex;
             align-items: center;
@@ -113,10 +119,9 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            padding: 20px;
             text-align: center;
         }
-        
+
         .image-placeholder img {
             width: 100%;
             height: 100%;
@@ -127,8 +132,6 @@
         .image-placeholder:hover {
             border-color: var(--accent-purple);
             color: var(--accent-purple);
-            background: linear-gradient(135deg, #1e1e1e 0%, #181818 100%);
-            box-shadow: 0 10px 40px rgba(77, 22, 190, 0.1);
         }
 
         .caption {
@@ -139,7 +142,7 @@
         }
 
         /* --- SECTIONS --- */
-        
+
         /* HERO */
         header {
             padding: 120px 0 60px;
@@ -162,8 +165,8 @@
             color: transparent;
             line-height: 1.1;
         }
-        
-        header > p {
+
+        header>p {
             margin: 25px auto 40px;
             color: var(--text-muted);
             max-width: 750px;
@@ -183,18 +186,18 @@
             padding: 35px 0;
         }
 
-        .meta-item h4 { 
-            color: var(--text-muted); 
-            font-size: 0.9rem; 
+        .meta-item h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 8px;
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
         }
-        
-        .meta-item p { 
-            font-weight: 600; 
+
+        .meta-item p {
+            font-weight: 600;
             color: var(--text-main);
             font-size: 1rem;
         }
@@ -204,7 +207,7 @@
             padding: 20px 0;
             position: relative;
         }
-        
+
         .section-title {
             font-size: clamp(2rem, 4vw, 2.5rem);
             margin-bottom: 40px;
@@ -215,9 +218,9 @@
             line-height: 1.3;
         }
 
-        p { 
-            margin-bottom: 20px; 
-            color: #ccc; 
+        p {
+            margin-bottom: 20px;
+            color: #ccc;
             font-size: 1rem;
             line-height: 1.7;
         }
@@ -230,7 +233,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: border-color 0.3s ease, transform 0.3s ease;
         }
-        
+
         .card:hover {
             border-color: rgba(77, 22, 190, 0.5);
             transform: translateY(-3px);
@@ -299,7 +302,7 @@
         .feature-block.reverse .text-content {
             order: 2;
         }
-        
+
         .feature-block.reverse .image-placeholder {
             order: 1;
         }
@@ -311,13 +314,13 @@
             text-align: center;
             margin-top: 80px;
         }
-        
+
         footer h2 {
             font-size: clamp(1.8rem, 3vw, 2.2rem);
             margin-bottom: 30px;
             color: var(--text-main);
         }
-        
+
         footer p {
             max-width: 600px;
             margin-left: auto;
@@ -339,14 +342,14 @@
             border: none;
             cursor: pointer;
         }
-        
+
         .btn-primary:hover {
             background-color: #3c1196;
             box-shadow: 0 0 20px var(--accent-purple-glow);
             transform: translateY(-2px);
             text-decoration: none;
         }
-        
+
         .btn-primary:active {
             transform: translateY(0);
         }
@@ -356,13 +359,13 @@
             .grid-2 {
                 grid-template-columns: 1fr;
             }
-            
+
             .feature-block,
             .feature-block.reverse {
                 grid-template-columns: 1fr;
                 gap: 30px;
             }
-            
+
             .feature-block.reverse .text-content,
             .feature-block.reverse .image-placeholder {
                 order: initial;
@@ -370,6 +373,7 @@
         }
     </style>
 </head>
+
 <body>
     <script id="navbar" src="nav.js"></script>
 
@@ -377,7 +381,8 @@
         <div class="badge">Case Study</div>
         <h1>SoZo:<br>The Social NFT Marketplace</h1>
         <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #aaa;">
-            A product design case study analyzing the visual hierarchy, design system, and strategic UX decisions behind a community-driven Web3 platform.
+            A product design case study analyzing the visual hierarchy, design system, and strategic UX decisions behind
+            a community-driven Web3 platform.
         </p>
 
         <div class="meta-grid">
@@ -397,9 +402,14 @@
     </header>
 
     <div class="container">
-        
+
         <section>
             <h2 class="section-title">1. Design Objectives & Strategy</h2>
+
+            <div class="image-placeholder">
+                <img src="pics/sozo4.jpg" />
+            </div>
+
             <div class="grid-2">
                 <div class="card">
                     <h3>Primary Goals</h3>
@@ -424,30 +434,31 @@
 
         <section>
             <h2 class="section-title">2. Visual Design System</h2>
-            
+
             <h3>Color Palette</h3>
-            <p>The dark background with vibrant accent colors creates a premium, tech-forward aesthetic. This palette positions SoZo as innovative while maintaining sophistication—crucial for a financial product.</p>
-            
+            <p>The dark background with vibrant accent colors creates a premium, tech-forward aesthetic. This palette
+                positions SoZo as innovative while maintaining sophistication—crucial for a financial product.</p>
+
             <div class="color-palette">
-                <div class="swatch" style="background: #0F1419;">Navy/Black<br><span>#0F1419</span></div>
-                <div class="swatch" style="background: #0066FF;">Electric Blue<br><span>#0066FF</span></div>
-                <div class="swatch" style="background: linear-gradient(90deg, #0066FF, #8F00FF, #FF7A00);">Brand<br><span>Gradient</span></div>
-                <div class="swatch" style="background: #00E0FF; color: #000;">Cyan<br><span>Accent</span></div>
+                <div class="swatch" style="background: #0F1419;"><span>#0F1419</span></div>
+                <div class="swatch" style="background: #0066FF;"><span>#2C63C7</span></div>
             </div>
 
-            <h3>Typography</h3>
+
             <div class="typography-sample">
                 <h1 style="margin: 0;">Aa</h1>
-                <p style="margin-top: 10px; font-family: 'Poppins', sans-serif; font-weight: 700;">Headlines: Poppins (Bold 48-56px)</p>
-                <p style="font-family: 'Inter', sans-serif;">Body: Inter (Regular 16-18px). Chosen for accessibility, clarity, and professional credibility.</p>
+                <p style="margin-top: 10px; font-family: 'Poppins', sans-serif; font-weight: 700;">Headlines: Poppins
+                    (Bold 48-56px)</p>
+                <p style="font-family: 'Inter', sans-serif;">Body: Inter (Regular 16-18px). Chosen for accessibility,
+                    clarity, and professional credibility.</p>
             </div>
         </section>
 
         <section>
             <h2 class="section-title">3. Layout & Information Architecture</h2>
-            <p>The layout strategy focuses on clear spatial hierarchy, using ample negative space and consistent padding to prevent cognitive overload.</p>
-            
-            
+            <p>The layout strategy focuses on clear spatial hierarchy, using ample negative space and consistent padding
+                to prevent cognitive overload.</p>
+
 
             <div class="grid-2">
                 <div>
@@ -471,6 +482,11 @@
 
         <section>
             <h2 class="section-title">4. Component Design</h2>
+
+            <div class="image-placeholder">
+                <img src="pics/sozo6.jpg"/>
+
+            </div>
             <div class="grid-2">
                 <div class="card">
                     <h3>Interactive Buttons</h3>
@@ -479,39 +495,56 @@
                         <a href="#" class="btn-primary">Primary Action</a>
                         <a href="#" class="btn-primary secondary">Secondary</a>
                     </div>
-                    <p style="font-size: 0.85rem; margin-top: 15px; opacity: 0.7;">Primary: Electric Blue, rounded corners, hover glow.<br>Secondary: Outline style, lower visual weight.</p>
+                    <p style="font-size: 0.85rem; margin-top: 15px; opacity: 0.7;">Primary: Electric Blue, rounded
+                        corners, hover glow.<br>Secondary: Outline style, lower visual weight.</p>
                 </div>
                 <div class="card">
                     <h3>Feature Cards</h3>
-                    <p>Consistent dark background with subtle 1-2px borders. Uses a numbered badge system (01, 02, 03) to create visual rhythm and reading order.</p>
+                    <p>Consistent dark background with subtle 1-2px borders. Uses a numbered badge system (01, 02, 03)
+                        to create visual rhythm and reading order.</p>
                 </div>
             </div>
         </section>
 
         <section>
             <h2 class="section-title">5. Visual Elements & Iconography</h2>
-            <p><strong>The Infinity Logo:</strong> The gradient infinity loop (blue → purple → orange) acts as the primary brand mark and a metaphor for limitless possibilities.</p>
-            <p><strong>Imagery:</strong> We utilize 3D abstract geometric shapes (cubes, torus, networking visuals) in warm palettes to contrast against the dark background, creating a sense of innovation.</p>
+
+            <div class="grid-2" style="margin-bottom: 30px;">
+
+            </div>
+
+            <p><strong>The Infinity Logo:</strong> The gradient infinity loop (blue → purple → orange) acts as the
+                primary brand mark and a metaphor for limitless possibilities.</p>
+
+
+            <p style="margin-top: 30px;"><strong>Imagery:</strong> We utilize 3D abstract geometric shapes (cubes,
+                torus, networking visuals) in warm palettes to contrast against the dark background, creating a sense of
+                innovation.</p>
         </section>
 
         <section>
             <h2 class="section-title">6. UX Patterns & User Journey</h2>
-            <p>Despite the blockchain foundation, we prioritized <strong>Clarity over Complexity</strong>. We utilize progressive disclosure to guide the user from the high-level value proposition down to specific mechanics.</p>
-            
-            
+
+
+            <p>Despite the blockchain foundation, we prioritized <strong>Clarity over Complexity</strong>. We utilize
+                progressive disclosure to guide the user from the high-level value proposition down to specific
+                mechanics.</p>
+
+
 
             <ul>
                 <li><strong>Plain Language:</strong> Avoiding technical jargon in favor of accessible terms.</li>
                 <li><strong>Social Proof:</strong> "Meet the Team" sections build trust.</li>
-                <li><strong>Micro-interactions:</strong> Smooth hover effects on cards and icon transitions to increase engagement.</li>
+                <li><strong>Micro-interactions:</strong> Smooth hover effects on cards and icon transitions to increase
+                    engagement.</li>
             </ul>
         </section>
 
         <section>
             <h2 class="section-title">7. Design System Consistency</h2>
             <p>The site is built on a rigorous framework to ensure scalability across devices.</p>
-            
-            
+
+
 
             <ul>
                 <li><strong>Grid:</strong> 12-column responsive grid.</li>
@@ -548,4 +581,5 @@
     </div>
 
 </body>
+
 </html>
