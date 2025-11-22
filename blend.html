@@ -1,0 +1,355 @@
+<style>
+  body {
+    background-color: #191919;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  /* Prevent scrolling when lightbox is open */
+  body.lightbox-open {
+    overflow: hidden;
+  }
+
+  .container {
+    margin: 0 auto;
+    width: 80%;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 300;
+    font-size: 2.5em;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding: 20px 0;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-item .title {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 15px;
+    margin: 0;
+    transition: bottom 0.3s ease;
+    font-size: 1.1em;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .gallery-item:hover .title {
+    bottom: 0;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+    
+    .container {
+      padding: 20px 10px;
+    }
+    
+    h1 {
+      font-size: 2em;
+    }
+  }
+
+  /* Lightbox Styles */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+  
+  .lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  }
+  
+  .lightbox-title {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2em;
+  }
+  
+  .close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .close-lightbox:hover {
+    transform: rotate(90deg);
+    color: #ff6b6b;
+  }
+  
+  /* Navigation arrows */
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 2;
+  }
+  
+  .lightbox-nav-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+  
+  .lightbox-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .lightbox-nav-btn.prev {
+    left: 20px;
+  }
+  
+  .lightbox-nav-btn.next {
+    right: 20px;
+  }
+</style>
+
+<body>
+  <script id="navbar" src="nav.js"></script>
+  <div class="container">
+    <h1>Geometric & Abstract Design</h1>
+    <p>
+      In this collection of visual designs and digital illustrations, I explore
+      geometric abstraction. My work demonstrates a strong focus on composition,
+      modern color theory, and the application of diverse design principles in
+      both 2D and 3D forms.
+    </p>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg_zCCvXoWqXKROX1MBH3N8TtWg9imN6EtFnHM1V_6TTMRLlCkHe9XDEqEk9pImcCQsLqcOVFlwZ7tLgIX1cRLMJEYW8AFtJwgtSQkp1yzWPPWIfhGijdnxyLco7FIk4DOFa83B8RwClyvTy49FXUSBCSdRGthGL3tQzqiSWCf_vzQ/s1600/1.jpg" alt="Abstract Design">
+        <div class="title">Abstract Design</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf3VnHy8nCVn4Zu_ceH6XpWYbauA3VngVST1-Julgrpu7h6Iq5acjApn6iAi_y_BYPHorNGs2PeA05IrJWyAMjbUuUKbPF3JLYBIeIGJPpCnL5S2Zg_rvtV5k2S_V4m2Rjh_7H4kLccKWuJ_W54gCi2xtLYx9CWwRvh5hb_4zcECs/s1600/45-01.png" alt="Geometric Pattern">
+        <div class="title">Geometric Pattern</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4bWoyhrpLwTdlmEf33jFqtmdYWcApjzZmcBwHLl6uWbfZmaPRGydE_VAzRArd1k56upQxDEHh0bVXTgfJFoL288kuiPYxLSxuaPRC6jSEQkc2JBRjGkcRdtEiP2Om-P90yIfRonV8GcU3Jv2UAa4XvynFP1moCJUszy6HeOCidb0/s1600/5%20(2).png" alt="Abstract Design 2">
+        <div class="title">Abstract Design 2</div>
+      </div>
+ 
+      <div class="gallery-item">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiAmDZH_-fN4F4sEM2gAVnxAXBcCj-6pKdr2rqg_-UQR96Kz9d5oHFb7qrNNoW-pMeCpGVM1rIip2YQ8n-942DCH67zVTFLnKwLJR3XmzyipA12E2WykKNRtraka4Lmd8aJh1EUPwgobFBD79bos627ILXJyhT5vjYKh1ZopaEn64c/s1600/Untitled-KL-01.png" alt="Untitled KL">
+        <div class="title">Untitled KL</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgntWr_OXzuluB2FBF8vq04Hbshj9I0lxdshHPnbM9Tv1M7hCMSLYgwYU1hwKzSdlVLwM1uie9XvLEHYn2q97xm8k8IHJzrdSmxi3fRK1ZkxRwcxywGCet-owxssJI4afKbtaifOAKCaAYshrBspY3RTBWl6X72km6BxCrNB4rX42s/s1600/Islamic%20Jali.png" alt="Islamic Jali">
+        <div class="title">Islamic Jali</div>
+      </div>
+      <div class="gallery-item">
+        <img src="pics/islamic.jpg" alt="Islamic Jali">
+        <div class="title">Islamic Pattern</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox HTML -->
+  <div class="lightbox" id="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <div class="lightbox-nav">
+      <button class="lightbox-nav-btn prev">❮</button>
+      <button class="lightbox-nav-btn next">❯</button>
+    </div>
+    <div class="lightbox-content">
+      <img src="" alt="" id="lightbox-img">
+      <div class="lightbox-title" id="lightbox-title"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxTitle = document.getElementById('lightbox-title');
+      const closeBtn = document.querySelector('.close-lightbox');
+      const prevBtn = document.querySelector('.lightbox-nav-btn.prev');
+      const nextBtn = document.querySelector('.lightbox-nav-btn.next');
+      
+      let currentIndex = 0;
+      const items = [];
+      
+      // Store gallery items data
+      galleryItems.forEach((item, index) => {
+        const img = item.querySelector('img');
+        const title = item.querySelector('.title').textContent;
+        items.push({ src: img.src, title: title });
+        
+        // Add click event to each gallery item
+        item.addEventListener('click', () => openLightbox(index));
+      });
+      
+      // Open lightbox with selected image
+      function openLightbox(index) {
+        currentIndex = index;
+        updateLightbox();
+        lightbox.classList.add('active');
+        document.body.classList.add('lightbox-open');
+      }
+      
+      // Update lightbox content
+      function updateLightbox() {
+        lightboxImg.src = items[currentIndex].src;
+        lightboxTitle.textContent = items[currentIndex].title;
+      }
+      
+      // Close lightbox
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.classList.remove('lightbox-open');
+      }
+      
+      // Navigation functions
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        updateLightbox();
+      }
+      
+      function showNext() {
+        currentIndex = (currentIndex + 1) % items.length;
+        updateLightbox();
+      }
+      
+      // Event listeners
+      closeBtn.addEventListener('click', closeLightbox);
+      prevBtn.addEventListener('click', showPrev);
+      nextBtn.addEventListener('click', showNext);
+      
+      // Close when clicking outside the image
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        
+        switch (e.key) {
+          case 'Escape':
+            closeLightbox();
+            break;
+          case 'ArrowLeft':
+            showPrev();
+            break;
+          case 'ArrowRight':
+            showNext();
+            break;
+        }
+      });
+    });
+  </script>
+</body>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: WebOps IITM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #161616;
+            --accent-purple: #4D16BE;
+            --accent-purple-glow: rgba(77, 22, 190, 0.4);
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --border-radius: 12px;
+            --spacing-section: 120px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            margin-top: 10px;
+        }
+
+        .container h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        .container h3 {
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .container ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .container ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+        }
+
+        .container ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-weight: bold;
+        }
+
+        a {
+            color: var(--text-main);
+            text-decoration: none;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1000px;
+            margin: 10px auto;
+            padding: 0 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .highlight {
+            color: #9d72ff;
+        }
+
+        /* --- IMAGE PLACEHOLDER STYLE --- */
+        .image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1.2rem);
+            margin: 10px 0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .image-placeholder img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+            border-radius: 16px;
+        }
+
+
+        /* --- SECTIONS --- */
+
+        /* HERO */
+        header {
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+
+        header .badge {
+            margin-bottom: 40px;
+            margin-top: 0;
+        }
+
+        header h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 30px;
+            margin-top: 0;
+            background: linear-gradient(to right, #fff, #9d72ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+
+        header>p {
+            margin-top: 30px;
+            margin-bottom: 50px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px auto;
+            max-width: 800px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 0;
+        }
+
+        .meta-item h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+
+        .meta-item p {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        /* CONTENT BLOCKS */
+        section {
+            padding: 20px 0;
+            position: relative;
+        }
+
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 40px;
+            border-left: 5px solid var(--accent-purple);
+            padding-left: 20px;
+            color: var(--text-main);
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #ccc;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        /* PROBLEM / SOLUTION GRID */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            header {
+                padding: 100px 0 50px;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            header .badge {
+                margin-bottom: 20px;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+                padding-left: 15px;
+            }
+
+            .color-palette {
+                justify-content: center;
+            }
+
+            .swatch {
+                width: 80px;
+                height: 80px;
+                font-size: 0.7rem;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(77, 22, 190, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* DESIGN SYSTEM PREVIEW */
+        .color-palette {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .swatch {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* FEATURE HIGHLIGHTS (ZigZag) */
+        .feature-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-block.reverse {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .feature-block.reverse .text-content {
+            order: 2;
+        }
+
+        .feature-block.reverse .image-placeholder {
+            order: 1;
+        }
+
+        .feature-block h3 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            margin-bottom: 20px;
+            color: var(--accent-purple);
+        }
+
+        @media (max-width: 768px) {
+
+            .feature-block,
+            .feature-block.reverse {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .feature-block.reverse .text-content,
+            .feature-block.reverse .image-placeholder {
+                order: initial;
+            }
+        }
+
+        /* RESULTS & METRICS */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .metric-card {
+            background: linear-gradient(145deg, #1e1e1e, #161616);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(77, 22, 190, 0.2);
+        }
+
+        .metric-number {
+            font-size: clamp(2.5rem, 5vw, 3rem);
+            font-weight: 700;
+            color: var(--accent-purple);
+            font-family: 'Josefin Sans', sans-serif;
+            margin-bottom: 10px;
+        }
+
+        .metric-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 0;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 80px 0;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        footer h2 {
+            font-size: clamp(1.8rem, 3vw, 2.2rem);
+            margin-bottom: 30px;
+            color: var(--text-main);
+        }
+
+        footer p {
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-purple);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+            margin-top: 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #3c1196;
+            box-shadow: 0 0 20px var(--accent-purple-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <script id="navbar" src="nav.js"></script>
+    <header class="container">
+        <div class="badge">Case Study</div>
+        <h1>WebOps IITM<br>A Digital Identity</h1>
+        <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto; color: #aaa;">
+            Designed and built the digital home for IIT Madras's Web Operations club from scratch.
+        </p>
+
+        <div class="meta-grid">
+            <div class="meta-item">
+                <h4>ROLE</h4>
+                <p>Designer & Developer</p>
+            </div>
+            <div class="meta-item">
+                <h4>TIMELINE</h4>
+                <p>3-4 Weeks (2023)</p>
+            </div>
+            <div class="meta-item">
+                <h4>TOOLS</h4>
+                <p>HTML/CSS/JS, WebGL</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="image-placeholder"
+            style="border-color: var(--accent-purple); border: none; padding: 0;">
+            <img src="pics/webop.jpg" alt="WebOps IITM Website Screenshot">
+        </div>
+    </div>
+
+    <div class="container">
+        <section>
+            <div class="grid-2">
+                <div>
+                    <h2 class="section-title">The Challenge</h2>
+                    <p>As a Super Coordinator of the WebOps club at IIT Madras, I noticed a critical irony: our club,
+                        focused on web development, had no digital presence. While we built sites for others, we lacked
+                        our own platform.</p>
+                    <p>I needed to build a site that would recruit members, showcase our portfolio, and prove our
+                        technical expertise—all while balancing academic responsibilities.</p>
+                </div>
+                <div class="card">
+                    <h3 style="margin-bottom: 20px;">Key Objectives</h3>
+                    <ul style="margin-top: 10px;">
+                        <li>Establish a professional digital identity.</li>
+                        <li>Create a recruitment funnel for students.</li>
+                        <li>Showcase past projects to campus organizations.</li>
+                        <li>Ensure performance on slow campus networks.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <section>
+            <h2 class="section-title">Visual Strategy</h2>
+            <p>The goal was to strike a balance: professional enough to build credibility, but approachable enough to
+                feel like a student community. I opted for a <strong>Dark Mode</strong> aesthetic which is popular in
+                developer communities.</p>
+
+            <div class="image-placeholder">
+                <img src="pics/webop6.jpg" alt="">
+            </div>
+
+            <div class="grid-2" style="margin-top: 40px;">
+                <div>
+                    <h3 style="color: var(--text-main); margin-bottom: 15px;">Color Palette</h3>
+                    <p>I chose a deep dark background to reduce eye strain and a vibrant purple accent to signal
+                        creativity and innovation.</p>
+                    <div class="color-palette">
+                        <div class="swatch" style="background: #121212; color: #fff; cursor: default;">#121212</div>
+                        <div class="swatch" style="background: #4D16BE; color: #fff; cursor: default;">#4D16BE</div>
+                        <div class="swatch"
+                            style="background: #FFFFFF; color: #000; border: 1px solid rgba(255,255,255,0.2); cursor: default;">
+                            #FFFFFF</div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="color: var(--text-main); margin-bottom: 15px;">Typography</h3>
+                    <p><strong>Headings:</strong> Josefin Sans (Geometric, Impactful)</p>
+                    <p><strong>Body:</strong> Poppins (Modern, Readable)</p>
+                    <p style="margin-top: 20px; opacity: 0.8;">The combination creates a tech-forward look that
+                        establishes hierarchy clearly.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="container">
+        <section>
+            <h2 class="section-title">Key Design Decisions</h2>
+
+            <div class="feature-block">
+                <div class="text-content">
+                    <h3>01. Glassmorphism Navigation</h3>
+                    <p>I designed a fixed navigation bar with a pill-shape and glassmorphism effect. It stays accessible
+                        while scrolling but visually "floats" above the content, maintaining the modern aesthetic
+                        without cluttering the view.</p>
+                </div>
+                <div class="image-placeholder">
+                    <img src="pics/webop2.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="feature-block reverse">
+                <div class="text-content">
+                    <h3>02. Interactive Project Showcase</h3>
+                    <p>To prevent information overload, I implemented a horizontal scroll for project cards. Hovering
+                        over a card expands a colored "bulb" background, providing instant visual feedback and
+                        encouraging interaction.</p>
+                </div>
+                <div class="image-placeholder">
+                    <img src="pics/webop3.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="feature-block">
+                <div class="text-content">
+                    <h3>03. 3D Team Cards</h3>
+                    <p>Team sections are often boring. I utilized CSS 3D transforms to create cards that flip on hover.
+                        This "gamifies" the discovery of information (revealing roll numbers and roles) and showcases
+                        our CSS capabilities.</p>
+                </div>
+                <div class="image-placeholder">
+                    <img src="pics/webop4.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="feature-block reverse">
+                <div class="text-content">
+                    <h3>04. WebGL Fluid Simulation</h3>
+                    <p>For the Application page, I integrated a WebGL fluid simulation. It serves as a "wow factor" that
+                        differentiates us from other clubs and demonstrates technical prowess to prospective recruits.
+                    </p>
+                </div>
+                <div class="image-placeholder">
+                    <img src="pics/webop5.jpg" alt="">
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+    <div class="container">
+        <section>
+            <h2 class="section-title">Technical Implementation</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>The Stack</h3>
+                    <p>I deliberately avoided heavy frameworks to ensure raw performance and to demonstrate fundamental
+                        understanding.</p>
+                    <div style="margin-top: 15px;">
+                        <span class="badge">HTML5</span>
+                        <span class="badge">CSS3</span>
+                        <span class="badge">Vanilla JS</span>
+                        <span class="badge">WebGL</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Performance</h3>
+                    <p>Optimized for campus networks via lazy loading, compressed assets, and texture downsampling for
+                        the WebGL elements on mobile devices.</p>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+
+
+</body>
+
+</html>

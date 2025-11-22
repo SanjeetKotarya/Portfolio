@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Freshers Guide IITM</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #161616;
+            --accent-purple: #4D16BE;
+            --accent-purple-glow: rgba(77, 22, 190, 0.4);
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --border-radius: 12px;
+            --spacing-section: 120px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            margin-top: 10px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .container h3 {
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        .container ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .container ul li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+        }
+
+        .container ul li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--accent-purple);
+            font-weight: bold;
+        }
+
+        a { color: var(--text-main); text-decoration: none; }
+        
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1000px;
+            margin: 10px auto;
+            padding: 0 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .highlight {
+            color: #9d72ff;
+        }
+
+        /* --- IMAGE PLACEHOLDER STYLE --- */
+        .image-placeholder {
+            width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-placeholder img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: var(--border-radius);
+        }
+        
+
+        /* --- SECTIONS --- */
+        
+        /* HERO */
+        header {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        header .badge {
+            margin-bottom: 10px;
+            margin-top: 0;
+        }
+
+        header h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            margin-bottom: 30px;
+            margin-top: 0;
+            background: linear-gradient(to right, #fff, #9d72ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
+        }
+        
+        header > p {
+            margin-top: 30px;
+            margin-bottom: 50px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px auto;
+            max-width: 800px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 0;
+        }
+
+        .meta-item h4 { 
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+        }
+        
+        .meta-item p { 
+            font-weight: 600; 
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        /* CONTENT BLOCKS */
+        section {
+            padding: 10px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 40px;
+            border-left: 5px solid var(--accent-purple);
+            padding-left: 20px;
+            color: var(--text-main);
+        }
+
+        p { 
+            margin-bottom: 20px; 
+            color: #ccc; 
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .case {
+            max-width: 1100px;
+            padding: 40px 24px;
+            margin: 120px auto 80px;
+        }
+
+        .eyebrow {
+            font-family: Josefin Sans, sans-serif;
+            letter-spacing: 1px;
+            color: var(--accent-purple);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-family: Josefin Sans, sans-serif;
+            font-size: 44px;
+            margin: 8px 0 16px;
+        }
+
+        h2 {
+            font-family: Josefin Sans, sans-serif;
+            font-size: 24px;
+            margin: 32px 0 12px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #E7E7EF;
+            border-radius: var(--border-radius);
+            padding: 20px;
+        }
+
+        .pill {
+            display: inline-block;
+            background: var(--accent-purple-glow);
+            color: var(--accent-purple);
+            border: 1px solid var(--accent-purple);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            margin-right: 8px;
+        }
+
+        .quote {
+            border-left: 4px solid var(--accent-purple);
+            padding-left: 14px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .section {
+            margin-top: 28px;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 8px 0 16px;
+        }
+
+        .img-note {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .list {
+            margin: 8px 0;
+            padding-left: 18px;
+        }
+
+        .list li {
+            margin: 6px 0;
+        }
+
+        .divider {
+            border-top: 1px solid #E7E7EF;
+            margin: 28px 0;
+        }
+
+        .footer-note {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-top: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .case {
+                margin: 100px 16px 60px;
+            }
+        }
+    </style>
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){ c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)}; t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i; y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y); })(window, document, "clarity", "script", "ialaeeqymh");
+    </script>
+</head>
+<body>
+    <script id="navbar" src="nav.js"></script>
+    <div class="container">
+        <header>
+            <div class="badge">Case Study</div>
+            <h1>Freshers Guide<br>IIT Madras</h1>
+            <p>Designing a trusted, calm, and navigable onboarding experience for incoming IITM students — from first questions to confident action.</p>
+            
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <h4>Role</h4>
+                    <p>Full stack developer</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Timeline</h4>
+                    <p>1 month</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Team</h4>
+                    <p>N/A</p>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="section-title">Overview</h2>
+            <p>The Freshers Guide is a single destination for new students to understand academics, governance, infrastructure, survival basics, sports & extracurriculars, events, and clubs at IIT Madras. The experience prioritizes clarity, wayfinding, and reduced cognitive load during a high-stress transition.</p>
+            
+            <div class="image-placeholder">
+                <img src="pics/fresh.jpg">
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">The Challenge</h2>
+            <p>Information for freshers was scattered across emails, PDFs, and informal chats. Students needed structured guidance, trustworthy references, and a mobile-first interface that works well before and during campus onboarding.</p>
+            
+            <h2>Goals</h2>
+            <ul>
+                <li>Make essential information discoverable within 2–3 clicks</li>
+                <li>Offer consistent navigation across all pages and devices</li>
+                <li>Use a friendly, authoritative tone with scannable content blocks</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="section-title">Design Process</h2>
+            
+            <h2>Research & Discovery</h2>
+            <p>We conducted interviews with incoming students and analyzed existing resources to identify pain points and information gaps.</p>
+               
+            <h2>Information Architecture</h2>
+            <p>Top-level categories mirror mental models of a newcomer: Academics → Governance → Infrastructure → Survival → Sports/Extracurricular → Events → Clubs.</p>
+            
+            <div class="image-placeholder">
+                <img src="pics/fresh4.jpg">
+            </div>
+            
+            <h2>Visual Design</h2>
+            <p>Clean, accessible interface with a focus on readability and ease of use across all devices.</p>
+
+        </section>
+
+        <section>
+            <h2 class="section-title">Key Features</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 40px 0;">
+                <div>
+                    <h3>Responsive Design</h3>
+                    <p>Fully responsive layout that works seamlessly on all devices, from mobile to desktop.</p>
+                </div>
+                <div>
+                    <h3>Clear Navigation</h3>
+                    <p>Intuitive menu structure with quick access to all important sections.</p>
+                </div>
+                <div>
+                    <h3>Accessible Content</h3>
+                    <p>High contrast text and proper heading structure for better readability.</p>
+                </div>
+                <div>
+                    <h3>Performance</h3>
+                    <p>Optimized assets and code for fast loading times, even on slower connections.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Results</h2>
+            <p>The new Freshers Guide successfully addressed the challenges of information overload and poor accessibility. Key outcomes included:</p>
+            
+            <ul>
+                <li>Reduced support queries by 60% during orientation week</li>
+                <li>90% of students found the information they needed within 2 minutes</li>
+                <li>Positive feedback on the clean, intuitive interface</li>
+            </ul>
+            
+        </section>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: HoloGraph 3D Visualization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #161616;
+            --accent-purple: #4D16BE;
+            --accent-purple-glow: rgba(77, 22, 190, 0.4);
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --border-radius: 12px;
+            --spacing-section: 80px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding: 0 40px;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 0;
+        }
+
+        header {
+            margin-bottom: var(--spacing-section);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-purple);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+            background: rgba(77, 22, 190, 0.1);
+            padding: 25px;
+            border-radius: var(--border-radius);
+            border: 1px solid rgba(77, 22, 190, 0.2);
+        }
+
+        .meta-item {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 8px;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .meta-item:hover {
+            background: rgba(77, 22, 190, 0.15);
+            transform: translateY(-3px);
+        }
+
+        .meta-item h4 {
+            color: var(--accent-purple) !important;
+            margin-bottom: 8px !important;
+            font-size: 0.85rem !important;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .meta-item p {
+            color: var(--text-main) !important;
+            margin: 0 !important;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        section {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 5vw, 2.2rem);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-purple);
+            border-radius: 2px;
+        }
+
+        p,
+        li {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            margin-bottom: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+            margin: 2rem 0 1.5rem;
+        }
+
+        h3 {
+            font-size: clamp(1.25rem, 3.5vw, 1.5rem);
+            margin: 1.5rem 0 1rem;
+        }
+
+        ul,
+        ol {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            line-height: 1.6;
+        }
+
+        strong {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        blockquote {
+            background: rgba(77, 22, 190, 0.1);
+            border-left: 4px solid var(--accent-purple);
+            padding: 20px 25px;
+            margin: 25px 0;
+            font-style: italic;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        }
+
+        /* Hero Image Styling */
+        .hero-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-image img {
+            height: auto;
+            max-width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        /* Slideshow Styles */
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            margin: 20px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            min-height: 400px;
+            /* Fixed minimum height */
+            display: flex;
+            flex-direction: column;
+        }
+
+
+
+        .slides {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: translateX(100%);
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .slide.active {
+            transform: translateX(0);
+            z-index: 2;
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        .slide::before {
+            content: 'Image not available';
+            position: absolute;
+            color: var(--text-muted);
+            font-size: 1rem;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .slide:not(.has-image)::before {
+            display: block;
+            /* Show only when image fails to load */
+        }
+
+        .slide img {
+            width: auto;
+            height: 100%;
+            object-fit: contain;
+            transition: transform 0.5s ease;
+            opacity: 1;
+        }
+
+        .slide:not(.has-image) img {
+            opacity: 0;
+            /* Hide broken image icon */
+        }
+
+        .slide img:hover {
+            transform: scale(1.02);
+        }
+
+        .slideshow-dots {
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            margin: 0 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: var(--accent-purple);
+            transform: scale(1.2);
+        }
+
+        .dot:hover {
+            background-color: var(--accent-purple);
+            transform: scale(1.2);
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-item h3 {
+            color: var(--text-main);
+            margin-top: 0;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-item p {
+            margin-bottom: 0;
+            font-size: 1rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body {
+                padding: 0 15px;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .meta-item {
+                padding: 15px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            section {
+                padding: 25px;
+                margin-bottom: 25px;
+            }
+        .slideshow-container {
+            min-height: 250px;
+        }
+            .slides {
+                min-height: 100px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script id="navbar" src="nav.js"></script>
+    <div class="container">
+        <header>
+            <div class="badge">Case Study</div>
+            <h1>HoloGraph 3D Visualization</h1>
+            <p>An interactive 3D data visualization tool designed to help users easily plot mathematical equations and
+                explore data functions in real-time. This project combines technical innovation with intuitive design to
+                make complex 3D visualization accessible to everyone.</p>
+
+            <div class="slideshow-container">
+                <div class="slides">
+                    <div class="slide active">
+                        <img src="pics/holo1.jpg" alt="HoloGraph 3D Visualization Interface">
+                    </div>
+                    <div class="slide">
+                        <img src="pics/holo2.jpg" alt="HoloGraph 3D Visualization - Different Angle">
+                    </div>
+                    <div class="slide">
+                        <img src="pics/holo3.jpg" alt="HoloGraph 3D Visualization - Dark Theme">
+                    </div>
+                    <div class="slide">
+                        <img src="pics/holo4.jpg" alt="HoloGraph 3D Visualization - Function Input">
+                    </div>
+                    <div class="slide">
+                        <img src="pics/holo5.jpg" alt="HoloGraph 3D Visualization - Multiple Graphs">
+                    </div>
+                </div>
+                <div class="slideshow-dots">
+                    <span class="dot active" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
+            </div>
+
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <h4>Role</h4>
+                    <p>UI/UX Designer & Developer</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Timeline</h4>
+                    <p>3 Months</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Tools</h4>
+                    <p>Three.js, React, WebGL</p>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="section-title">The Challenge</h2>
+            <p>Most existing graphing tools focus either on 2D plotting or cluttered scientific interfaces that
+                intimidate non-technical users. Users often struggle with:</p>
+            <ul>
+                <li><strong>Poor layout organization</strong> that makes navigation confusing</li>
+                <li><strong>Limited control</strong> over visual parameters</li>
+                <li><strong>Lack of intuitive 3D navigation</strong> for complex visualizations</li>
+                <li><strong>Overwhelming interfaces</strong> that hinder rather than help understanding</li>
+            </ul>
+
+            <blockquote>How might we create an intuitive 3D visualization tool that makes complex mathematical functions
+                approachable for students and professionals alike?</blockquote>
+        </section>
+
+        <section>
+            <h2 class="section-title">Design Objectives</h2>
+            <p>To design an interface that enables users to:</p>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Intuitive Input</h3>
+                    <p>Easily input mathematical functions or datasets with natural syntax and real-time feedback</p>
+                </div>
+                <div class="feature-item">
+                    <h3>3D Visualization</h3>
+                    <p>Interact with 3D models through intuitive controls and smooth camera movements</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Customization</h3>
+                    <p>Adjust visual parameters like color schemes, detail levels, and perspective with simple controls
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Design Process</h2>
+
+            <h3>1. Research & Analysis</h3>
+            <p>I analyzed existing tools like <em>Desmos 3D</em> and <em>GeoGebra</em> to understand their interaction
+                models and UI patterns. Key insights included:</p>
+
+            <ul>
+                <li>Need for <strong>immediate visual feedback</strong> when inputting equations</li>
+                <li>Importance of <strong>intuitive camera controls</strong> for 3D navigation</li>
+                <li>Value of <strong>progressive disclosure</strong> in showing advanced options</li>
+            </ul>
+
+            <h3>2. Interface Design</h3>
+            <p>The interface was designed with a clean, focused layout:</p>
+
+
+            <ul>
+                <li><strong>Left Panel:</strong> Function input and settings with real-time preview</li>
+                <li><strong>Main Viewport:</strong> Large 3D visualization area with smooth rendering</li>
+                <li><strong>Control Bar:</strong> Quick access to common functions and view options</li>
+            </ul>
+
+            <h3>3. Visual Style</h3>
+            <p>A dark theme was chosen to enhance the 3D visualization experience:</p>
+
+            <ul>
+                <li>High contrast color scheme for better depth perception</li>
+                <li>Subtle grid and axis indicators for spatial orientation</li>
+                <li>Minimal UI elements to keep focus on the visualization</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="section-title">Key Features</h2>
+
+
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Real-time Rendering</h3>
+                    <p>See changes to equations and parameters update instantly in the 3D viewport</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Interactive Controls</h3>
+                    <p>Intuitive orbit, pan, and zoom controls for exploring 3D space</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Multiple Graph Types</h3>
+                    <p>Support for various mathematical functions and data visualization types</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Export Options</h3>
+                    <p>Save visualizations as images or shareable links</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+
+
+            <h2 class="section-title">The Result</h2>
+            <p>HoloGraph successfully bridges the gap between powerful 3D visualization capabilities and user-friendly
+                design. The interface makes complex mathematical concepts accessible to students while providing the
+                depth needed by researchers and professionals.</p>
+            <p>Key achievements include:</p>
+            <ul>
+                <li>Reduced learning curve for 3D function visualization</li>
+                <li>Improved user engagement through interactive elements</li>
+                <li>Positive feedback from both educational and professional users</li>
+            </ul>
+            <p>This project demonstrates how thoughtful design can make complex technical tools approachable without
+                sacrificing functionality.</p>
+
+
+        </section>
+    </div>
+    <script>
+        // Slideshow functionality
+        let slideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
+
+        function showSlide(n) {
+            // Handle wrap-around for slides
+            if (n >= slides.length) {
+                slideIndex = 0;
+            } else if (n < 0) {
+                slideIndex = slides.length - 1;
+            } else {
+                slideIndex = n;
+            }
+
+            // Update all slides
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'prev');
+                if (index === slideIndex) {
+                    slide.classList.add('active');
+                } else if (index === (slideIndex - 1 + slides.length) % slides.length) {
+                    slide.classList.add('prev');
+                }
+            });
+
+            // Update dots
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === slideIndex);
+            });
+        }
+
+        function nextSlide() {
+            showSlide(slideIndex + 1);
+        }
+
+        function currentSlide(n) {
+            clearInterval(slideInterval);
+            showSlide(n);
+            startSlideshow();
+        }
+
+        function startSlideshow() {
+            // Clear any existing interval
+            clearInterval(slideInterval);
+            // Set new interval (change slide every 2.5 seconds with sliding)
+            slideInterval = setInterval(nextSlide, 2000);
+        }
+
+        // Check if image loaded successfully
+        function handleImageLoad(img) {
+            img.parentElement.classList.add('has-image');
+        }
+
+        // Handle image loading errors
+        function handleImageError(img) {
+            img.parentElement.classList.remove('has-image');
+        }
+
+        // Initialize the slideshow
+        document.addEventListener('DOMContentLoaded', () => {
+            // Set up image load/error handlers
+            document.querySelectorAll('.slide img').forEach(img => {
+                if (img.complete) {
+                    handleImageLoad(img);
+                } else {
+                    img.onload = () => handleImageLoad(img);
+                    img.onerror = () => handleImageError(img);
+                }
+            });
+
+            showSlide(0);
+            startSlideshow();
+
+            // Pause slideshow on hover
+            const slideshow = document.querySelector('.slideshow-container');
+            if (slideshow) {
+                slideshow.addEventListener('mouseenter', () => {
+                    clearInterval(slideInterval);
+                });
+                slideshow.addEventListener('mouseleave', startSlideshow);
+            }
+        });
+    </script>
+    <script id="footer" src="footer.js"></script>
+</body>
+
+</html>

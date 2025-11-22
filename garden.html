@@ -1,0 +1,451 @@
+<style>
+  body {
+    background-color: #191919;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+  }
+  
+  /* Prevent scrolling when lightbox is open */
+  body.lightbox-open {
+    overflow: hidden;
+  }
+
+  .container {
+    margin: 0 auto;
+    width: 80%;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 300;
+    font-size: 2.5em;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+    padding: 20px 0;
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .gallery-item .title {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 15px;
+    margin: 0;
+    transition: bottom 0.3s ease;
+    font-size: 1.1em;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .gallery-item:hover .title {
+    bottom: 0;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+    
+    .container {
+      padding: 20px 10px;
+    }
+    
+    h1 {
+      font-size: 2em;
+    }
+  }
+
+  /* Lightbox Styles */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+  
+  .lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .lightbox img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+  }
+  
+  .lightbox-title {
+    position: absolute;
+    bottom: -40px;
+    left: 0;
+    right: 0;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2em;
+  }
+  
+  .close-lightbox {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .close-lightbox:hover {
+    transform: rotate(90deg);
+    color: #ff6b6b;
+  }
+  
+  /* Navigation arrows */
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 2;
+  }
+  
+  .lightbox-nav-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s ease;
+  }
+  
+  .lightbox-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+  }
+  
+  .lightbox-nav-btn.prev {
+    left: 20px;
+  }
+  
+  .lightbox-nav-btn.next {
+    right: 20px;
+  }
+</style>
+
+<body>
+  <script id="navbar" src="nav.js"></script>
+<div class="container">
+  <h1>Artworks</h1>
+  <div class="gallery">
+    
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi2AWrxZNNWmBQIsIjAQiHMHToOLSnMHXhWvkm9uJ3pUVAYz9HSoplw7nwrbl7yjlczf7EzELgx0SJ85D7GNosycaIASbNzZ4de3WnDWZNJCgt__1Jkg5VeRbZQtUUHJFA7dv0kDcQBsebqwkVgIlqJrScBycuNoOwvPd1aNduMrfs/s1600/Me%205.jpg" alt="Abstract Composition">
+      <div class="title">Abstract Composition</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg9KdI1jUAWcIMDnekQwKSOBMpKwRDfGgF8kciJ4-ARL2B21p_0AOs-ANMWDy6XpVYeMnTzxREXC12ZONZXKjriws19cXA9XmLxlG4snG-tuuMLU09Oay_siVZ76PD6JpZ0TAm6bScF8NH2Ak_Bzh6BFki7soObUpDbV3pJbwuZYLs/s1600/Harshita.png" alt="Portrait: Harshita">
+      <div class="title">Portrait: Harshita</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjmi6cm0e9au1vgNdkPRxcflWhLjWyN2zdc05IlPyjRrrqNxwWgZCBz7nPJ55hUzKC0tnclu092zhK1UTTjVUXD_hHXzczCaNZm3TvmpaO6OQaBCrIcdPlcsL9czlA5KA11OadBDXTqBs0l_Ty4Hno6l3S0oMZQneUS7LhkdlacKU0/s1600/Beautiful%20Girl.png" alt="Beautiful Girl">
+      <div class="title">Beautiful Girl</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBNOdhycN0Rrs0DBeqfg_ZBbCtcRVdnGsNk6jjc7LyQdEhH9EqpzmzTYxnaBnhWey509GBzQF57Sj0tf5qyQcwXLaOPooQq-Na-zdjz1vh1r8nqH8tWD9JwIbKrMq5UyRwzEv7LMTmIcnBDlQ54X5QUfa3GBHYhNdRKGBCkKTPx2g/s1600/Pratiksha.png" alt="Portrait: Pratiksha">
+      <div class="title">Portrait: Pratiksha</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg_zCCvXoWqXKROX1MBH3N8TtWg9imN6EtFnHM1V_6TTMRLlCkHe9XDEqEk9pImcCQsLqcOVFlwZ7tLgIX1cRLMJEYW8AFtJwgtSQkp1yzWPPWIfhGijdnxyLco7FIk4DOFa83B8RwClyvTy49FXUSBCSdRGthGL3tQzqiSWCf_vzQ/s1600/1.jpg" alt="Artwork 1">
+      <div class="title">Artwork 1</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjf3VnHy8nCVn4Zu_ceH6XpWYbauA3VngVST1-Julgrpu7h6Iq5acjApn6iAi_y_BYPHorNGs2PeA05IrJWyAMjbUuUKbPF3JLYBIeIGJPpCnL5S2Zg_rvtV5k2S_V4m2Rjh_7H4kLccKWuJ_W54gCi2xtLYx9CWwRvh5hb_4zcECs/s1600/45-01.png" alt="Artwork 45-01">
+      <div class="title">Artwork 45-01</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4bWoyhrpLwTdlmEf33jFqtmdYWcApjzZmcBwHLl6uWbfZmaPRGydE_VAzRArd1k56upQxDEHh0bVXTgfJFoL288kuiPYxLSxuaPRC6jSEQkc2JBRjGkcRdtEiP2Om-P90yIfRonV8GcU3Jv2UAa4XvynFP1moCJUszy6HeOCidb0/s1600/5%20(2).png" alt="Artwork 5 (2)">
+      <div class="title">Artwork 5 (2)</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgXLZzgkKCigd1LPj2NSQzRUYGt3zIgqtq8foETDfNY0SJUj3PqtIuusw_FsY4Cwx99QIZL5AERaoTGPfYWfcGwUJX775hgrzhbQtstg8XUUy__AgXfzQ80PnwdjlcLlJXuWIxY1U_d8slAs9-UMXQw4AUG4pTmorpnntN1-wwCsLM/s1600/A%20girl.png" alt="Portrait: A Girl">
+      <div class="title">Portrait: A Girl</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiuNa_LATW79U4LcwiX0cX0SmMmUCQpVGgrH0CEG_ZU0Fop3GvPnh-Om9n0gH6BEE88ocqsSeWw6Gvq3cV4BYZ_Qq7qCBh285dOebQjAf2V3VrIh6uZy8WhnKrYQVJMCCUW-KVPXW-OcPhxrEuRQS4yICCwD8A4WtwjU3sIRxp_tDM/s1600/Bellatrix%20Lestrange.jpg" alt="Bellatrix Lestrange">
+      <div class="title">Bellatrix Lestrange</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgns_lY7X9pfnqB2BE8mFWCepXUjtXfGYf1Uirgyqi4ocngw_IeAHGwn7IIhhNI745or7fClbIIgCsTVzKTQbS5K3NN5GZt10-B-IcVvlVUJM3OyIIQo9YWd67wKecfIdCNStcpTG4N0-y8v7CFhxIP1d8r9o57kIZOty-NRN6--BE/s1600/Emma%20Watson.png" alt="Emma Watson">
+      <div class="title">Emma Watson</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjGUxy3IYTtnTmzG11nFZf8VYEW0wQX9IPUIwiKkYyTKQFeRRHfS9C8posLVvIwbBs6mwhRMBnUpNy12oAP51j1mEifYsDIvDgBaw237FOem0t70OhaedHu8KKRIXS0Jzb-VM0_mPUIm4bv87Dg-dZ_RgaiVLxL0sUw330OT3__ERY/s1600/HarryPotter%20and%20The%20Artist%202.jpg" alt="Harry Potter Art">
+      <div class="title">Harry Potter Art</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj79FCWSnMpq1wlWUK8H8x1bNlWPclux0XnBHjQcLA2uL8GOkrLMxnFKqhOud8eFsOgDl82oYK2xzk9MaZhxuhIWdl0bBsHA7W7nAHZyrt5dDbUv4zQtLWtvVt8FEy3KYOx8Qz0OMLlE66_NAfUFnaFlZF6Vqr7iF-OW_vH5inBOSo/s1600/Me%201.png" alt="Self Portrait 1">
+      <div class="title">Self Portrait 1</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiAmDZH_-fN4F4sEM2gAVnxAXBcCj-6pKdr2rqg_-UQR96Kz9d5oHFb7qrNNoW-pMeCpGVM1rIip2YQ8n-942DCH67zVTFLnKwLJR3XmzyipA12E2WykKNRtraka4Lmd8aJh1EUPwgobFBD79bos627ILXJyhT5vjYKh1ZopaEn64c/s1600/Untitled-KL-01.png" alt="Untitled Art">
+      <div class="title">Untitled Art</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg_zCCvXoWqXKROX1MBH3N8TtWg9imN6EtFnHM1V_6TTMRLlCkHe9XDEqEk9pImcCQsLqcOVFlwZ7tLgIX1cRLMJEYW8AFtJwgtSQkp1yzWPPWIfhGijdnxyLco7FIk4DOFa83B8RwClyvTy49FXUSBCSdRGthGL3tQzqiSWCf_vzQ/s1600/1.jpg" alt="Artwork 1 (Copy)">
+      <div class="title">Artwork 1 (Copy)</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgntWr_OXzuluB2FBF8vq04Hbshj9I0lxdshHPnbM9Tv1M7hCMSLYgwYU1hwKzSdlVLwM1uie9XvLEHYn2q97xm8k8IHJzrdSmxi3fRK1ZkxRwcxywGCet-owxssJI4afKbtaifOAKCaAYshrBspY3RTBWl6X72km6BxCrNB4rX42s/s1600/Islamic%20Jali.png" alt="Islamic Jali">
+      <div class="title">Islamic Jali</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhm48zLmueJ84WU4smrMUDjZM5OePDHvogAvL5stGM6Zg4AHDNuU1NrrSFtHDkgZ7U48M6xvR2X7ziAtYWJZOpenEtC_YdTzUYQROY1d62IPJfNWSnDexjnF7SBIgBOvPeP8VUTrRYbWoZRMZy5Ng6vzNt1ERyGdLlAvC1tc7kGQ5k/s1600/Dobby%20(The%20Free%20Elf).jpg" alt="Dobby (The Free Elf)">
+      <div class="title">Dobby (The Free Elf)</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjylRm7hUO40mj3j-mAOYn6dcd7xsBokLur-5HtEUM0AE0dyTIsClCsoDAKHocHtq1zFpUtcks0xUOubMXcYzRYyhCPviciwp9YW5xykdumG79lanhZd6UQR7GQFV7hviFjvru4oa-S3YaIfot7m-Zp8MVN-rLnogl647Wy1aiXi_E/s1600/6.jpg" alt="Artwork 6">
+      <div class="title">Artwork 6</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBdkPhqkNcVrcDTOFqUj4HmTt5lEoaPCXH4Qh0akgtDVxiKVA1F6M-rWH5-XtEr2kZHTJjcrLYfDTHNZOCV1ZPGPTXCgMuwxGB0TBoVDQFa4O_SRQNdJckgaHM_oY0oNqpIlCwYiWCs-xPx66HXeZAD0TK5G7SCGW3opbWjBj-5yQ/s1600/Me%206.jpg" alt="Self Portrait 2">
+      <div class="title">Self Portrait 2</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhRCMi-lMEEIwyDLMc9H67na10UMLPjSsbumGQEU9MB0uLXlGy1-xtICgTXBAExPUboOBFhVcc1FVnoghUROUldO7el6q9MqzYTWBNHRvzzzhDFDFT7nWZCV-5lM1TKGjUMZ7jM8Dyaf41PGrcFZVD8n9kz5AEsdCb3bSz5YNHsbhU/s1600/Me%203.jpg" alt="Self Portrait 3">
+      <div class="title">Self Portrait 3</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjjF5NEhffikyYa23ejHGnbVFsF_IWNCdNbsd7FEpzZVs428p7dsqxNjW_y3Otd35L95SFvGcLDslo2Y6Nh-5b9ycEU1T5kxwzozDZDx3dZ4V8UupjkgRK3zgFrb4ENIqnYMpRKp1i4AJsgxPeqCK0MuwVtEQBGJiD1vj2GI4wro5w/s1600/Beauty%20in%20the%20beast.jpg" alt="Beauty in the Beast">
+      <div class="title">Beauty in the Beast</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjIoK1hoPOhJs-1kJqBTABw1dlz_3ifbk3OtEb4sK0qr65j7Hgn83cANDGdxFE0Rf1yNHHzvtaLB5gj5yhUUhUL8GOUamhJlEjUJifJhogzf8lbd-g27JnXwT8TNKkyBnngdWOOtEpYRYcei4MpiOWJIw89SCuLwUhwBUiTA5-OUq8/s1600/Mask.jpg" alt="Mask">
+      <div class="title">Mask</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhRZKeRzBQ9T2LzNVjOIykt604oSnhnKlCnZv3Ragcv5zmBf40T3ap1I0l_mdFSZHwZNMqfgVjgeWlR7vRGxtb9gCvMY01tL0-lSu6X6KpJCswGiWZ6mNsz6Sz93UX0I4GR3QLzg_cH7_lWjta8PDWmnU_lT3EaYBElZtEHynESnQs/s1600/Yuki.jpg" alt="Yuki">
+      <div class="title">Yuki</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjedKTPGjOWzAALQLrVk9H_EmjqUXXTSlNwGVtleFoqya7EiFZ70CoRyrr50igO6eEARTSNmnnPVvSLRFAxGP_SYB5IDzi3T3ylrJaJ7w9uh0pgoiSM2rEjTFiE3H5qw-Fd0VSYgmwA8Kw1qHktd9iIHYqY6BeYcvxkUqupnvgnY1g/s1600/0140.png" alt="Artwork 0140">
+      <div class="title">Artwork 0140</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiV6BQrbX2yju_eRQ-mzegaTE9MVW8erRubMk-eSPopLxKTm1x-VXx4sPqLdrs4NR0px8h4gPBz6rXGpDa3F-ivXp9vW4UU9mEq-m3ARpR82tNuJtWqfVoLsEKbrMDRPVJ9Cvzj5PxD_VzJcEFZFzNi3byXgzVPGrNlD5kAQhunkz0/s1600/Figma.png" alt="Figma Design">
+      <div class="title">Figma Design</div>
+    </div>
+
+    <div class="gallery-item">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhSG3fevNaL6NO8roMhLCKicURmOLIhq15c0WhBrWWeSlBHUN8WY_zbzHjGc7TRV95MTuAAQ_ogSXx3LZ8bbS6BPiONq5jpYv_2_4sGLhpfkENPHAJo7EIS_YpCdAvPaJ0M8_WRGUS3NgCF3_Hb3US590F7xdVu0hHpXfO5OCycZOg/s1600/Me%204.jpg" alt="Self Portrait 4">
+      <div class="title">Self Portrait 4</div>
+    </div>
+
+  </div>
+</div>
+
+  <!-- Lightbox HTML -->
+  <div class="lightbox" id="lightbox">
+    <span class="close-lightbox">&times;</span>
+    <div class="lightbox-nav">
+      <button class="lightbox-nav-btn prev">❮</button>
+      <button class="lightbox-nav-btn next">❯</button>
+    </div>
+    <div class="lightbox-content">
+      <img src="" alt="" id="lightbox-img">
+      <div class="lightbox-title" id="lightbox-title"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxTitle = document.getElementById('lightbox-title');
+      const closeBtn = document.querySelector('.close-lightbox');
+      const prevBtn = document.querySelector('.lightbox-nav-btn.prev');
+      const nextBtn = document.querySelector('.lightbox-nav-btn.next');
+      
+      let currentIndex = 0;
+      const items = [];
+      
+      // Store gallery items data
+      galleryItems.forEach((item, index) => {
+        const img = item.querySelector('img');
+        const title = item.querySelector('.title').textContent;
+        items.push({ src: img.src, title: title });
+        
+        // Add click event to each gallery item
+        item.addEventListener('click', () => openLightbox(index));
+      });
+      
+      // Open lightbox with selected image
+      function openLightbox(index) {
+        currentIndex = index;
+        updateLightbox();
+        lightbox.classList.add('active');
+        document.body.classList.add('lightbox-open');
+      }
+      
+      // Update lightbox content
+      function updateLightbox() {
+        lightboxImg.src = items[currentIndex].src;
+        lightboxTitle.textContent = items[currentIndex].title;
+      }
+      
+      // Close lightbox
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.classList.remove('lightbox-open');
+      }
+      
+      // Navigation functions
+      function showPrev() {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        updateLightbox();
+      }
+      
+      function showNext() {
+        currentIndex = (currentIndex + 1) % items.length;
+        updateLightbox();
+      }
+      
+      // Event listeners
+      closeBtn.addEventListener('click', closeLightbox);
+      prevBtn.addEventListener('click', showPrev);
+      nextBtn.addEventListener('click', showNext);
+      
+      // Close when clicking outside the image
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+      
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+        
+        switch (e.key) {
+          case 'Escape':
+            closeLightbox();
+            break;
+          case 'ArrowLeft':
+            showPrev();
+            break;
+          case 'ArrowRight':
+            showNext();
+            break;
+        }
+      });
+    });
+  </script>
+</body>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Study: Image Sequence to Video Converter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="favicon_io/site.webmanifest">
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --bg-color: #0a0a0a;
+            --card-bg: #161616;
+            --accent-purple: #4D16BE;
+            --accent-purple-glow: rgba(77, 22, 190, 0.4);
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a0;
+            --border-radius: 12px;
+            --spacing-section: 80px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding: 0 40px;
+            font-size: clamp(0.95rem, 2.5vw, 1rem);
+            padding-top: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 0;
+        }
+
+        header {
+            margin-bottom: var(--spacing-section);
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-purple);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .meta-item h4 {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .meta-item p {
+            font-size: 1.1rem;
+            color: var(--text-main);
+        }
+
+        section {
+            margin-bottom: var(--spacing-section);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--text-main);
+            position: relative;
+            padding-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-purple);
+            border-radius: 2px;
+        }
+
+        p, li {
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            margin-bottom: 1.2rem;
+            color: var(--text-muted);
+        }
+
+        h2 {
+            font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+            margin: 2rem 0 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-top: 40px;
+        }
+
+        ul, ol {
+            margin: 20px 0;
+            padding-left: 25px;
+        }
+
+        .image-placeholder {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 60px 20px;
+            text-align: center;
+            margin: 40px 0;
+            color: var(--text-muted);
+            border: 1px dashed #333;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--accent-purple);
+            padding: 15px 0 15px 25px;
+            margin: 30px 0;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border: 1px solid #333;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            background-color: var(--card-bg);
+            font-family: 'Josefin Sans', sans-serif;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .feature-item {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-item h3 {
+            margin-top: 0;
+            color: var(--text-main);
+        }
+
+        .feature-item p {
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* Hero Image Styling */
+        .hero-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-image img {
+            height: auto;
+            max-width: 100%;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image:hover img {
+            transform: scale(1.02);
+        }
+
+        /* Wireframe Section Layout */
+        .wireframe-container {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: start;
+            margin: 30px 0;
+        }
+
+        .wireframe-content {
+            padding-right: 20px;
+        }
+
+        .wireframe-image {
+            position: sticky;
+            top: 40px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background: var(--card-bg);
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wireframe-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 0 15px;
+            }
+
+            .meta-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .meta-item {
+                padding: 15px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .wireframe-container {
+                grid-template-columns: 1fr;
+                margin: 20px 0;
+                gap: 20px;
+            }
+            
+            .wireframe-image {
+                position: relative;
+                top: 0;
+                margin-top: 20px;
+                order: 2; /* Ensures image comes after content */
+            }
+            
+            .wireframe-content {
+                padding-right: 0;
+                order: 1; /* Ensures content comes before image */
+            }
+            
+            section {
+                padding: 20px;
+                margin-bottom: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script id="navbar" src="nav.js"></script>
+    <div class="container">
+        <header>
+            <div class="badge">Case Study</div>
+            <h1>Image Sequence to Video Converter</h1>
+            <p>A lightweight desktop application I built to solve my own workflow challenges when converting Blender animation sequences into video files with customizable frame rates.</p>
+            
+            <div class="hero-image">
+                <img src="pics/isvc.jpg" alt="Image Sequence to Video Converter Interface">
+            </div>
+            
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <h4>Role</h4>
+                    <p>Product Designer & Developer</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Timeline</h4>
+                    <p>1-2 Days</p>
+                </div>
+                <div class="meta-item">
+                    <h4>Tools</h4>
+                    <p>Python, PyQt, FFmpeg</p>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <h2 class="section-title">Overview</h2>
+            <p>This project is a <strong>desktop application</strong> that converts image sequences into video files with customizable frame rates. It was originally developed to streamline the process of exporting <strong>Blender animations (PNG sequences)</strong> into playable videos — eliminating the need for complex or paid tools like Adobe Premiere Pro.</p>
+        </section>
+
+        <section>
+            <h2 class="section-title">The Challenge</h2>
+            <p>3D artists and motion designers often export animations as <strong>image sequences</strong> (e.g., hundreds of PNGs) to maintain quality. However, converting these sequences into videos typically requires:</p>
+            <ul>
+                <li>Opening a heavy video editor (Premiere, After Effects)</li>
+                <li>Adjusting settings manually</li>
+                <li>Exporting the video, which takes multiple steps</li>
+            </ul>
+            <p>This process is <strong>time-consuming</strong>, <strong>resource-heavy</strong>, and <strong>unnecessarily complex</strong> for a simple task.</p>
+            
+            <blockquote>How might we create a lightweight, easy-to-use desktop tool that allows users to convert image sequences into videos quickly and without confusion?</blockquote>
+        </section>
+
+        <section>
+            <h2 class="section-title">My Process & Needs</h2>
+            <p>As a Blender artist and animator myself, I often needed to convert animation sequences into videos. The existing solutions were either too complex or required expensive software.</p>
+            
+            <h3>My Key Requirements</h3>
+            <ul>
+                <li><strong>Speed</strong> — I wanted a one-click solution to convert sequences without unnecessary steps</li>
+                <li><strong>Simplicity</strong> — No need for complex video editing features I didn't need</li>
+                <li><strong>Control</strong> — Just the essential settings I actually use (FPS, output format)</li>
+            </ul>
+            
+            <h3>My Design Goals</h3>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Minimal Clicks</h3>
+                    <p>Select folder and hit convert - that's it</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Smart Defaults</h3>
+                    <p>Pre-set to the settings I use most often</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Progress Visibility</h3>
+                    <p>Clear indication of conversion progress</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Design Process</h2>
+            
+            <div class="wireframe-container">
+                <div class="wireframe-content">
+                    <h3>1. Wireframing</h3>
+                    <p>I started by sketching a compact layout:</p>
+                    <ul>
+                        <li>A clear <strong>"Browse Image Folder"</strong> button for easy navigation</li>
+                        <li>Input fields for <strong>Frame Rate (FPS)</strong> and <strong>Output Format</strong></li>
+                        <li>A <strong>single prominent CTA</strong> ("Convert Now") to reduce confusion</li>
+                        <li>A <strong>progress bar</strong> for user feedback and completion tracking</li>
+                    </ul>
+                </div>
+                <div class="wireframe-image">
+                    <img src="pics/isvcWire.jpg" alt="Wireframe of the Image Sequence to Video Converter interface">
+                </div>
+            </div>
+            
+            <h3>2. Visual Design</h3>
+            <ul>
+                <li><strong>High contrast purple CTA</strong> to draw attention</li>
+                <li><strong>Rounded corners</strong> and light-gray background for modern, tool-like feel</li>
+                <li><strong>Simple top bar</strong> to make the app look professional and uncluttered</li>
+            </ul>
+            
+            <h3>3. Interaction Design</h3>
+            <ul>
+                <li>Immediate feedback when selecting a folder or starting conversion</li>
+                <li>Progress bar animates smoothly to convey responsiveness</li>
+                <li>"Convert Now" button disabled during conversion to prevent accidental clicks</li>
+            </ul>
+            
+        </section>
+
+        <section>
+            <h2 class="section-title">Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h3>Folder Selection</h3>
+                    <p>Easily select folders containing image sequences</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Customizable Frame Rate</h3>
+                    <p>Adjust FPS to match your animation needs</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Multiple Output Formats</h3>
+                    <p>Support for MP4, AVI, and more</p>
+                </div>
+                <div class="feature-item">
+                    <h3>Real-time Progress</h3>
+                    <p>Visual feedback during conversion</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">UX Decisions</h2>
+            <table>
+                <tr>
+                    <th>Challenge</th>
+                    <th>UX Solution</th>
+                </tr>
+                <tr>
+                    <td>Too many settings confuse users</td>
+                    <td>Minimal input fields — only essential controls</td>
+                </tr>
+                <tr>
+                    <td>Users want to know progress</td>
+                    <td>Added a progress bar with % indicator</td>
+                </tr>
+                <tr>
+                    <td>Default values unclear</td>
+                    <td>Pre-filled frame rate (30 FPS) as an industry standard</td>
+                </tr>
+                <tr>
+                    <td>Ambiguity in next steps</td>
+                    <td>Single, bold "Convert Now" button with clear labeling</td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <h2 class="section-title">Personal Impact</h2>
+            <p>Since building this tool, it's become an essential part of my animation workflow. What used to be a multi-step process that required opening heavy software is now just a couple of clicks.</p>
+            
+            <h3>How It Helps Me</h3>
+            <ul>
+                <li>Saves me several minutes per animation export</li>
+                <li>Eliminates the need to open resource-heavy video editors</li>
+                <li>Gives me exactly the control I need without overwhelming options</li>
+            </ul>
+            
+            <h3>Future Improvements I'm Considering</h3>
+            <ul>
+                <li>Adding drag-and-drop support for even faster workflow</li>
+                <li>Remembering my last used settings and folder</li>
+                <li>Support for batch processing multiple sequences at once</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="section-title">The Result</h2>
+            <p>What started as a simple script to solve my own problem has become an essential tool in my animation workflow. It's a perfect example of how identifying a personal pain point can lead to an elegant, focused solution.</p>
+            <p>While I initially built this just for myself, I've since shared it with a few fellow animators who found it equally useful. It's incredibly satisfying to see how a tool created out of personal necessity can benefit others in the community.</p>
+        </section>
+    </div>
+    <script id="footer" src="footer.js"></script>
+</body>
+</html>

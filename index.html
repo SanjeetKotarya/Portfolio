@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanjeet Kotarya | Product Designer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+        rel="stylesheet">
+    <style>
+        /* --- CSS Variables & Reset --- */
+
+        :root {
+            --bg-main: #191919;
+            --bg-card: #1A1A1A;
+            --text-primary: #ffffff;
+            --text-secondary: #ccc;
+            --accent-tag-bg: #2C2C2C;
+            --accent-tag-text: #CCCCCC;
+            --border-color: #333333;
+            --accent-gold: #f0c674;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Typography: Use Playfair Display for headings/titles */
+        h1,
+        h2,
+        h3,
+        .main-title,
+        .section-title,
+        .card-title,
+        .intro-text h2,
+        .right-sidebar-container h3,
+        .story-title-area h2,
+        .contact-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        /* --- Container --- */
+        .container {
+            width: 80%;
+            max-width: 1400px;
+            /* Increased width to fit side-by-side layout better */
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header/Hero Section --- */
+        header {
+            margin-top: 40px;
+            margin-bottom: 80px;
+        }
+
+        h1.main-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        /* GRID LAYOUT UPDATE */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            align-items: center;
+        }
+
+        /* Desktop layout: 3 Columns (Text - Image - RightSidebar) */
+        @media (min-width: 1100px) {
+            .hero-grid {
+                /* Adjusted ratios: Text (40%), Image (40%), Tools/Social (20%) */
+                grid-template-columns: 0.4fr 0.4fr 0.2fr;
+            }
+        }
+
+        /* 1. LEFT: Intro Text */
+        .intro-text h2 {
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .intro-text h2 span {
+            color: var(--text-primary);
+        }
+
+        .intro-text p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            max-width: 90%;
+        }
+
+        /* 2. CENTER: Hero Image (UPDATED: RECTANGLE) */
+        .hero-image-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 320px;
+        }
+
+        /* 3. RIGHT: Sidebar (UPDATED: SIDE BY SIDE) */
+        .right-sidebar-container {
+            display: flex;
+            gap: 30px;
+            /* Space between Tools and Social */
+        }
+
+        /* Tools Column */
+        .tools-section {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 10px;
+            width: 100%;
+        }
+
+
+
+        /* Headers in sidebar */
+        .right-sidebar-container h3 {
+            font-size: 0.95rem;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        /* Tool Items (Pills) */
+        .skill-item {
+            margin-bottom: 12px;
+            background: var(--bg-card);
+            /* Dark card background */
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            border: 1px solid #2a2a2a;
+            transition: ease-out 0.25s;
+        }
+
+        .skill-item:hover {
+            border: 1px solid rgb(116, 116, 116);
+        }
+
+        .skill-icon {
+            margin-right: 10px;
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            border-radius: 4px;
+            object-fit: contain;
+            background: none;
+        }
+
+        /* Social Links (List style) */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: transparent;
+            border: 1px solid #333;
+            transition: background 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--bg-card);
+            border-color: var(--text-secondary);
+        }
+
+        .social-icon {
+            margin-right: 10px;
+            width: 16px;
+            text-align: center;
+        }
+
+
+        /* --- Featured Work Teaser Section --- */
+        .featured-section {
+            margin-top: 80px;
+        }
+
+        .featured-header h2 {
+            font-size: 2.6rem;
+            margin-bottom: 10px;
+        }
+
+        .featured-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 900px;
+        }
+
+        .featured-grid,
+        .featured-grid2 {
+            display: grid;
+            grid-template-columns: 0.9fr 2fr;
+            gap: 40px;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .featured-grid2 {
+
+            display: grid;
+            grid-template-columns: 2fr 0.9fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        @media (max-width: 1000px) {
+
+            .featured-grid,
+            .featured-grid2 {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .bubble-card {
+                height: 320px;
+                border-radius: 24px;
+            }
+
+            .bubble-card .card-visuals img {
+                left: 20px;
+                right: 20px;
+                width: calc(100% - 40px);
+                height: 100%;
+                object-fit: contain;
+            }
+        }
+
+        /* Bubble Card */
+        .bubble-card {
+            position: relative;
+            height: 440px;
+            border-radius: 36px;
+            background: #d9d5cf;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        @media (max-width: 768px) {
+            .bubble-card {
+                height: 280px;
+                margin-bottom: 30px;
+            }
+
+            .card-image {
+                height: 160px;
+            }
+
+            .project-card {
+                margin-bottom: 15px;
+            }
+
+            .featured-header h2 {
+                font-size: 2rem;
+            }
+
+            .featured-header p {
+                font-size: 1rem;
+            }
+        }
+
+        .bubble-card .card-visuals img {
+            position: absolute;
+            top: 0;
+            left: 40px;
+            width: 90%;
+            height: auto;
+            margin: 0 auto;
+            align-items: center;
+            border-radius: 26px;
+            z-index: 0;
+        }
+
+        /* Yellow bubble overlay */
+        .bubble-card .bubble-overlay {
+            position: absolute;
+            inset: 0;
+            border-radius: 36px;
+            clip-path: circle(0% at 15% 15%);
+            transition: clip-path 350ms ease-in-out;
+            z-index: 1;
+        }
+
+        .bubble-card:hover .bubble-overlay {
+            clip-path: circle(150% at 50% 50%);
+        }
+
+        /* Description and footer become visible once bubble fills */
+        .bubble-text {
+            position: absolute;
+            left: 70px;
+            top: 120px;
+            width: 70%;
+            color: #1a1a1a;
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            line-height: 1.25;
+            opacity: 0;
+            transition: opacity 350ms 100ms ease;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            .bubble-text {
+                font-size: 1.2rem;
+                left: 40px;
+                top: 80px;
+                width: 75%;
+                line-height: 1.3;
+            }
+        }
+
+        .bubble-card:hover .bubble-text {
+            opacity: 1;
+        }
+
+        .bubble-footer {
+            position: absolute;
+            left: 60px;
+            right: 60px;
+            bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            color: rgba(0, 0, 0, 0.75);
+            font-size: 1.4rem;
+            z-index: 2;
+            font-weight: 600;
+            justify-content: center;
+        }
+
+        .bubble-footer .tags {
+            color: #4C0EBF;
+        }
+
+        .bubble-footer .arrow {
+            margin-left: auto;
+            font-size: 3rem;
+            color: #000;
+            opacity: 0;
+            transform: translateX(-16px) scale(0.85);
+            filter: blur(2px);
+        }
+
+        @keyframes arrow-pop {
+            0% {
+                opacity: 0;
+                transform: translateX(-20px) scale(0.75);
+                filter: blur(6px);
+            }
+
+            60% {
+                opacity: 1;
+                transform: translateX(6px) scale(1.08);
+                filter: blur(0);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        .bubble-card:hover .bubble-footer .arrow {
+            animation: arrow-pop 200ms 200ms ease-out forwards;
+            /* start after overlay fills (600ms) */
+        }
+
+        /* Right column cards */
+        .featured-side {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .side-card {
+            border-radius: 36px;
+            height: 200px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+        }
+
+        .side-card.blue {
+            background: black;
+        }
+
+        .side-card.white {
+            background: white;
+        }
+
+        /* Heartbeat animation for side-card images */
+        @keyframes heartbeat {
+            0% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.05);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            75% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .side-card img {
+            transition: transform 0.3s ease-in-out;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .side-card:hover img {
+            animation: heartbeat 1s ease-in-out;
+        }
+
+        #my-works {
+            margin-top: 50px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 10px;
+        }
+
+        /* Tabs */
+        .tabs-nav {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+            border-bottom: none;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.1rem;
+            padding: 10px 0;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            outline: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn.active {
+            color: #ffffff;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab-btn:hover {
+            color: #ffffff;
+            opacity: 0.9;
+        }
+
+        /* Remove any potential underline from buttons */
+        button.tab-btn,
+        button.tab-btn:active,
+        button.tab-btn:focus,
+        button.tab-btn:visited {
+            text-decoration: none;
+            outline: none;
+            border-bottom: 2px solid transparent;
+        }
+
+        /* Content Grid */
+        .tab-content-area {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tab-content-area.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Cards */
+        .project-card {
+            background-color: var(--bg-card);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: #444;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            object-position: top;
+            background: #252525;
+        }
+
+        .card-content {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+.card-content h3 {
+    color: white;
+}
+
+
+        .card-title {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: auto;
+            margin-bottom: 15px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: var(--accent-tag-bg);
+            color: var(--accent-tag-text);
+        }
+
+        .card-date {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        /* Specific Tag Colors */
+        .tag.ux {
+            background: #3E2C2C;
+            color: #DFAFAF;
+        }
+
+        .tag.web {
+            background: #2C3E2C;
+            color: #AFDF AF;
+        }
+
+        .tag.ddp {
+            background: #3E2C3E;
+            color: #DFAFDF;
+        }
+
+        /* Story Section */
+        .story-section {
+            margin-top: 90px;
+            padding: 60px 0;
+            margin: 0 auto;
+        }
+
+        .story-title-area {
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .story-title-area h2 {
+            font-size: 2.2rem;
+        }
+
+        .story-title-area p {
+            color: var(--text-secondary);
+            max-width: 640px;
+            font-size: 1.1rem;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 0;
+            align-items: center;
+        }
+
+        .photo-stack {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .photo-card {
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-card img {
+            width: 80%;
+            height: auto;
+            object-fit: cover;
+        }
+
+
+        .story-text-block {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .story-text-block strong {
+            color: var(--text-primary);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            margin-top: 30px;
+            padding: 40px;
+            background: var(--bg-card);
+            border: 1px solid #222;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-section h2 {
+            font-size: 1.6rem;
+            margin-bottom: 10px;
+        }
+
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .contact-item {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .contact-label {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .contact-value a,
+        .contact-value {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Contact Social Icons */
+        .contact-social {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .contact-social a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid #333;
+            border-radius: 6px;
+            color: var(--text-primary);
+            text-decoration: none;
+            background-color: transparent;
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        .contact-social a:hover {
+            background-color: var(--bg-card);
+            border-color: var(--text-secondary);
+        }
+
+        .contact-social svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .pf-container {
+            font-family: 'Inter', sans-serif;
+            padding: 40px 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* Prevents horizontal scroll during animation */
+            width: 100%;
+            box-sizing: border-box;
+
+        }
+
+        /* --- Header Section --- */
+        .pf-header {
+            max-width: 1000px;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .pf-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0 0 16px 0;
+            line-height: 1.1;
+        }
+
+        .pf-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 400;
+            max-width: 600px;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        .pf-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            width: 100%;
+            max-width: 1000px;
+            gap: 40px;
+        }
+
+        .pf-grid-item {
+            padding: 25px 0;
+            border-bottom: 1px dashed #333;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            transition: color 0.2s;
+            cursor: default;
+        }
+
+        /* The main container for the cards */
+        .card-group {
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 40px;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .card {
+            width: 160px;
+            height: 180px;
+            border-radius: 20px;
+            transform: rotate(20deg);
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), margin 0.2s ease;
+            flex-shrink: 0;
+            /* Prevent squishing */
+            object-fit: cover;
+            border: 5px solid white;
+            box-shadow: -5px 10px 20px rgba(0, 0, 0, 0.15);
+            margin-left: -50px;
+            background-color: #ddd;
+            /* Fallback color */
+        }
+
+        /* Z-Index Stacking & Animation Delays */
+        /* We add transition-delay to create the smooth "wave" motion */
+        .card:nth-child(1) {
+            z-index: 1;
+            margin-left: 0;
+        }
+
+        .card:nth-child(2) {
+            z-index: 2;
+            transition-delay: 0.022s;
+        }
+
+        .card:nth-child(3) {
+            z-index: 3;
+            transition-delay: 0.024s;
+        }
+
+        .card:nth-child(4) {
+            z-index: 4;
+            transition-delay: 0.026s;
+        }
+
+        .card:nth-child(5) {
+            z-index: 5;
+            transition-delay: 0.028s;
+        }
+
+        .card:nth-child(6) {
+            z-index: 6;
+            transition-delay: 0.01s;
+        }
+
+        .card:nth-child(7) {
+            z-index: 7;
+            transition-delay: 0.012s;
+        }
+
+        .card:nth-child(8) {
+            z-index: 8;
+            transition-delay: 0.014s;
+        }
+
+        /* The Reveal Message Box */
+        .message-box {
+            width: 160px;
+            height: 180px;
+            border-radius: 20px;
+            /* The rotation is key to the design */
+            border: 1px dashed #333;
+            background-color: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: left;
+            z-index: 0;
+            /* Sits behind the last card initially */
+            margin-left: -180px;
+            color: #ffffff;
+            /* Reddish text color */
+            font-weight: 600;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            display: none;
+            transition: opacity 0.3s ease;
+        }
+
+
+        .card-group:hover .card:nth-child(2) {
+            transform: translateX(-30px) rotate(20deg);
+        }
+
+        .card-group:hover .card:nth-child(3) {
+            transform: translateX(-60px) rotate(20deg);
+        }
+
+        .card-group:hover .card:nth-child(4) {
+            transform: translateX(-90px) rotate(20deg);
+        }
+
+        .card-group:hover .card:nth-child(5) {
+            transform: translateX(-120px) rotate(20deg);
+        }
+
+        .card-group:hover .card:nth-child(6) {
+            transform: translateX(-150px) rotate(20deg);
+        }
+
+        .card-group:hover .card:nth-child(7) {
+            transform: translateX(-180px) rotate(20deg);
+        }
+
+        .card-group:hover .card:nth-child(8) {
+            transform: translateX(-210px) rotate(20deg);
+        }
+
+        .card-group:hover .message-box {
+            display: block;
+            opacity: 1;
+        }
+
+
+
+
+        header button {
+            background-color: white;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .side-card {
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .side-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
+        button a {
+            text-decoration: none;
+            color: black;
+        }
+
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pf-title {
+                font-size: 2.5rem;
+            }
+
+            .pf-grid {
+                gap: 5px;
+                font-size: small;
+            }
+
+            .card,
+            .message-box {
+                width: 100px;
+                height: 100px;
+                border: 1px;
+                font-size: 1rem;
+            }
+
+            .container {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .featured-side {
+                display: none;
+            }
+
+            .tools-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .bubble-footer {
+                font-size: 1.2rem;
+                bottom: 5px;
+            }
+
+
+        }
+        a{
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <script id="navbar" src="nav.js"></script>
+    <div class="container">
+        <header>
+            <div class="hero-grid">
+                <div class="intro-text">
+                    <p style="color: #CB9434;">Hi, I'm Sanjeet Kotarya</p>
+                    <h1>UI/UX & Product Designer<br>you can count on</h1>
+                    <p>Simplicity is my superpower. I turn complex ideas into experiences users love. I focus on
+                        clarity, usability, and creating interfaces that bridge the gap between user needs and business
+                        goals</p>
+                    <button class="cta-button"><a href="#contact">Contact me</a></button>
+                </div>
+                <div class="hero-image-container">
+                    <img src="me2.png" alt="Sanjeet Kotarya" class="hero-image">
+                </div>
+                <div class="right-sidebar-container">
+                    <div class="tools-section">
+                        <h3>Tools & Software</h3>
+                        <div class="skill-item"><img class="skill-icon" src="icon/fig.png" alt="Figma icon"> Figma
+                            (7/10)
+                        </div>
+                        <div class="skill-item"><img class="skill-icon" src="icon/jam.png" alt="FigJam icon"> FigJam
+                            (5/10)</div>
+                        <div class="skill-item"><img class="skill-icon" src="icon/ble.png" alt="Blender icon"> Blender
+                            (9/10)</div>
+                        <div class="skill-item"><img class="skill-icon" src="icon/ai.png" alt="Adobe Illustrator icon">
+                            Adobe
+                            Illustrator (9/10)</div>
+                        <div class="skill-item"><img class="skill-icon" src="icon/ae.png"
+                                alt="Adobe After Effects icon"> Adobe After
+                            Effects (4/10)</div>
+                    </div>
+                </div>
+
+            </div>
+        </header>
+
+
+        <section class="featured-section" id="featured-work">
+            <div class="featured-header">
+                <h2 class="pf-title">Tiny fraction of my work</h2>
+                <p class="pf-subtitle">Featured projects with case study.</p>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-side">
+                    <div class="side-card blue">
+                        <div class="side-card"><img src="pics/web4.png" alt="work visual 3" class="v3" /></div>
+                    </div>
+                    <div class="side-card white"><img src="pics/web3.png" alt="work visual 3" class="v3" /></div>
+                </div>
+                <a class="bubble-card" href="webopsCase.html">
+                    <div class="bubble-overlay" style="background: #F9C742;"></div>
+                    <div class="card-visuals">
+                        <img src="pics/web2.png" alt="work visual 1" class="v1" />
+                    </div>
+                    <div class="bubble-text">Built this website for Institute webops club of Indian Institute of
+                        Technology Madras.</div>
+                    <div class="bubble-footer">
+                        <span class="brand">WebOps Club</span>
+                        <span class="tags">IITM</span>
+                        <span class="arrow">»»</span>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="featured-grid2">
+                <a class="bubble-card" href="sozoCase.html">
+                    <div class="bubble-overlay" style="background: #3ECD5E;"></div>
+                    <div class="card-visuals">
+                        <img src="pics/sozo1.png" alt="work visual 1" class="v1" />
+                    </div>
+                    <div class="bubble-text">I made this website for Institute webops club of Indian Institute of
+                        Technology Madras.</div>
+                    <div class="bubble-footer">
+                        <span class="brand">SoZo</span>
+                        <span class="tags">NFT Space</span>
+                        <span class="arrow">»»</span>
+                    </div>
+                </a>
+                <div class="featured-side">
+                    <div class="side-card blue">
+                        <div class="side-card"><img src="pics/sozo2.png" alt="work visual 3" class="v3" /></div>
+                    </div>
+                    <div class="side-card white"><img src="pics/sozo3.png" alt="work visual 3" class="v3" /></div>
+                </div>
+            </div>
+            <div class="featured-grid">
+
+                <div class="featured-side">
+                    <div class="side-card blue">
+                        <div class="side-card"><img src="pics/fresh3.png" alt="work visual 3" class="v3" /></div>
+                    </div>
+                    <div class="side-card white"><img src="pics/fresh2.png" alt="work visual 3" class="v3" /></div>
+                </div>
+                <a class="bubble-card" href="freshCase.html">
+                    <div class="bubble-overlay" style="background: #4C49EA;"></div>
+                    <div class="card-visuals">
+                        <img src="pics/fresh1.png" alt="work visual 1" class="v1" />
+                    </div>
+                    <div class="bubble-text">Made this website for freshers. This website serves as a comprehensive
+                        platform to give you information about everything at IIT Madras.</div>
+                    <div class="bubble-footer">
+                        <span class="brand">Freshers-iitm</span>
+                        <span class="tags">IITM</span>
+                        <span class="arrow">»»</span>
+                    </div>
+                </a>
+            </div>
+
+
+
+        </section>
+
+        <section id="my-works">
+            <h2 class="section-title">My Works</h2>
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-target="website-designs">Website Designs</button>
+                <button class="tab-btn" data-target="artworks">Artworks</button>
+                <button class="tab-btn" data-target="3d-modeling">3D Modeling & Animation</button>
+            </div>
+
+            <div id="website-designs" class="tab-content-area active">
+                <a href="isv.html" class="project-card">
+                    <img src="pics/isvc.jpg" alt="isvc" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Image Sequence to Video Converter</h3>
+                        <p class="card-subtitle">Personal Project</p>
+                        <div class="card-tags"><span class="tag ux">UI/UX</span><span class="tag web">Tool</span>
+                        </div>
+                        <p class="card-date">June 2024 - Dec 2024</p>
+                    </div>
+                </a>
+                <a href="holoCase.html" class="project-card">
+                    <img src="pics/holo.jpg" alt="Holograph" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">HoloGraph Visualization</h3>
+                        <p class="card-subtitle">Dual Degree Project</p>
+                        <div class="card-tags"><span class="tag ddp">DDP</span><span class="tag">3D</span></div>
+                        <p class="card-date">Jun 2025 - Present</p>
+                    </div>
+                </a>
+                <a href="holoCase.html" class="project-card">
+                    <img src="pics/pvs.jpg" alt="pvc" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title"> Plotly Visualization Suite</h3>
+                        <p class="card-subtitle">Personal Project</p>
+                        <div class="card-tags"><span class="tag ddp">UI/UX</span><span class="tag">Tool</span></div>
+                        <p class="card-date">N/A</p>
+                    </div>
+                </a>                
+            </div>
+
+            <div id="artworks" class="tab-content-area">
+                <a href="gad.html" class="project-card">
+                    <img src="pics/gad.jpg" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Geometric & Abstract Design</h3>
+                    </div>
+                </a>
+                <a href="vp.html" class="project-card">
+                    <img src="pics/vp.jpg" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Vector Portraiture</h3>
+                    </div>
+                </a>
+                <a href="ps.html" class="project-card">
+                    <img src="pics/ps.jpg" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Paintings & Sketches</h3>
+                    </div>
+                </a>                                
+            </div>
+
+            <div id="3d-modeling" class="tab-content-area">
+                <a href="blend.html" class="project-card">
+                    <img src="https://via.placeholder.com/400x225/222/FFF?text=3D+Render" class="card-image">
+                    <div class="card-content">
+                        <h3 class="card-title">Blender Models</h3>
+                    </div>
+                </a>
+            </div>
+
+        </section>
+
+
+        <div class="pf-container">
+            <div class="pf-header">
+                <h1 class="pf-title">I've got your back with...</h1>
+                <p class="pf-subtitle">Digital aesthetics that engage and emotionally connect with your users</p>
+            </div>
+
+            <div class="card-group">
+                <img src="pics/d1.png" alt="Interface" class="card">
+                <img src="pics/d2.png" alt="UI Design" class="card">
+                <img src="pics/d3.png" alt="Abstract" class="card">
+                <img src="pics/d4.png" alt="Gradient" class="card">
+                <img src="pics/d5.png" alt="Liquid" class="card">
+                <img src="pics/d6.png" alt="Pattern" class="card">
+                <img src="pics/d7.png" alt="Colors" class="card">
+                <img src="pics/d8.png" alt="Typography" class="card">
+
+                <!-- Hidden Message Box -->
+                <div class="message-box">
+                    Let's make it resonate.
+                </div>
+            </div>
+
+            <div class="pf-grid">
+                <div class="pf-grid-col">
+                    <div class="pf-grid-item">Product Design</div>
+                    <div class="pf-grid-item" style="border-bottom: none;">Design systems</div>
+                </div>
+                <div class="pf-grid-col">
+                    <div class="pf-grid-item">Animation</div>
+                    <div class="pf-grid-item" style="border-bottom: none;">Visual identity</div>
+                </div>
+                <div class="pf-grid-col">
+                    <div class="pf-grid-item">Framer</div>
+                    <div class="pf-grid-item" style="border-bottom: none;">Iconography</div>
+                </div>
+                <div class="pf-grid-col">
+                    <div class="pf-grid-item">Websites / Apps</div>
+                    <div class="pf-grid-item" style="border-bottom: none;">Midjourney</div>
+                </div>
+            </div>
+        </div>
+
+        <section class="story-section" id="behind-the-pixels">
+            <div class="story-title-area">
+                <h2>Behind the pixels</h2>
+                <p>Here’s a quick peek into life beyond the screens. The same curiosity that drives my product work
+                    keeps me sketching, traveling, and collecting stories around IIT Madras and wherever design takes
+                    me.</p>
+            </div>
+
+            <div class="story-grid">
+                <div class="photo-stack">
+                    <div class="photo-card">
+                        <img src="pic1.png" alt="Story Photo 1">
+                    </div>
+                </div>
+                <div class="story-text-block">
+                    <p>I’m from Prayagraj, and creativity has shaped my life from the start—painting, sketching,
+                        woodworking, crafting, 3D art, animation, and video editing are all part of how I express ideas.
+                        Engineering Design at IIT Madras expanded that instinct, giving me a playground to explore
+                        visuals, design, and storytelling through both traditional and digital mediums. Living and
+                        learning across different environments keeps me curious, adaptable, and deeply collaborative.
+                    </p>
+                </div>
+            </div>
+
+            <div class="story-grid"
+                style="padding-top: 20px; margin-top: 20px; border-top: none; background: repeating-linear-gradient(to right, #313131 0 10px, transparent 10px 30px) top left / 100% 1px no-repeat;">
+                <div class="story-text-block">
+                    <p>You’ll find me skateboarding, experimenting with illustration styles inspired by cinema, or
+                        diving into sci-fi and horror through games and movies. These little adventures recharge me and
+                        help me translate complex concepts into simple, human experiences. Creativity isn’t just my
+                        skill—it’s how I understand the world and keep imagining what comes next.</p>
+                </div>
+                <div class="photo-stack">
+                    <div class="photo-card">
+                        <img src="pic2.png" alt="Story Photo 1">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+            <h2>Let's Connect</h2>
+            <p style="color: var(--text-secondary); max-width: 600px;">
+                Open to collaborations, internships, and conversations around product design and emerging tech.
+            </p>
+            <div class="contact-row">
+                <div class="contact-item">
+                    <p class="contact-label">Email</p>
+                    <p class="contact-value"><a href="mailto:sanjeetkotarya@gmail.com">sanjeetkotarya@gmail.com</a></p>
+                </div>
+                <div class="contact-item">
+                    <p class="contact-label">Social</p>
+                    <div class="contact-social">
+                        <a href="https://www.instagram.com/sanju_kotarya" target="_blank" rel="noopener noreferrer"
+                            aria-label="Instagram">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="3" width="18" height="18" rx="5" ry="5"></rect>
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <circle cx="17.5" cy="6.5" r="1.5"></circle>
+                            </svg>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="https://www.youtube.com/@sanjukotarya" target="_blank" rel="noopener noreferrer"
+                            aria-label="YouTube">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="7" width="18" height="10" rx="3" ry="3"></rect>
+                                <polygon points="10,9 16,12 10,15" fill="currentColor" stroke="none"></polygon>
+                            </svg>
+                            <span>YouTube</span>
+                        </a>
+                        <a href="https://linkedin.com/in/sanjeetkotarya" target="_blank" rel="noopener noreferrer"
+                            aria-label="LinkedIn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+                                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="7" cy="7" r="1.4"></circle>
+                                <line x1="7" y1="10" x2="7" y2="16"></line>
+                                <path d="M12 10h2a3 3 0 0 1 3 3v3"></path>
+                                <line x1="12" y1="10" x2="12" y2="16"></line>
+                            </svg>
+                            <span>LinkedIn</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Simple Tab Switching Logic
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content-area').forEach(c => c.classList.remove('active'));
+
+                button.classList.add('active');
+                const target = document.getElementById(button.getAttribute('data-target'));
+                if (target) target.classList.add('active');
+            });
+        });
+    </script>
+
+</body>
+
+</html>
