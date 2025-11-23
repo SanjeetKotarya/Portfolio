@@ -145,8 +145,7 @@
         }
 
         header .badge {
-            margin-bottom: 40px;
-            margin-top: 0;
+            margin: 20px auto;
         }
 
         header h1 {
@@ -243,9 +242,6 @@
                 margin-bottom: 20px;
             }
 
-            header .badge {
-                margin-bottom: 20px;
-            }
 
             section {
                 padding: 40px 0;
@@ -423,6 +419,74 @@
         .btn-primary:active {
             transform: translateY(0);
         }
+
+
+
+        .web-link {
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin: 10px auto;
+        }
+
+        .web-link {
+            --border-width: 1px;
+            --radius: 25px;
+            position: relative;
+            border-radius: var(--radius);
+            border: var(--border-width) solid transparent;
+        }
+
+        .web-link::before {
+            content: " ";
+            position: absolute;
+            inset: calc(var(--border-width) * -1);
+            z-index: -1;
+            border: inherit;
+            border-radius: inherit;
+            background-image: conic-gradient(from var(--angle), #381D6A 80%, #E0D1FF 88%, #E0D1FF 92%, #381D6A 100%);
+            background-origin: border-box;
+            -webkit-mask:
+                linear-gradient(black, black) content-box,
+                linear-gradient(black, black);
+            mask: linear-gradient(black, black),
+                linear-gradient(black, black);
+            -webkit-mask-clip: content-box, border-box;
+            mask-clip: content-box, border-box;
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spin 3s linear infinite;
+        }
+
+        @supports not (background: paint(something)) {
+            .web-link::before {
+                background-image: conic-gradient(#381D6A 80%, #E0D1FF 88%, #E0D1FF 92%, #381D6A 100%);
+            }
+        }
+
+        .web-link:hover::before {
+            animation-play-state: paused;
+        }
+
+        @property --angle {
+            syntax: "<angle>";
+            inherits: true;
+            initial-value: 0turn;
+        }
+
+        @keyframes spin {
+            to {
+                --angle: 1turn;
+            }
+        }
+
+
+
+
+
     </style>
 </head>
 
@@ -430,11 +494,15 @@
     <script id="navbar" src="nav.js"></script>
     <header class="container">
         <div class="badge">Case Study</div>
-        <h1>WebOps IITM<br>A Digital Identity</h1>
+        <h1>WebOps IITM<br>Website</h1>
         <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto; color: #aaa;">
             Designed and built the digital home for IIT Madras's Web Operations club from scratch.
         </p>
-
+        <div class="web-link">
+            <a href="https://sanjeetkotarya.github.io/WebOpsIITM/" target="_blank" rel="noopener noreferrer">
+                PREVIEW
+            </a>
+        </div>
         <div class="meta-grid">
             <div class="meta-item">
                 <h4>ROLE</h4>

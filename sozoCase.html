@@ -99,6 +99,69 @@
             letter-spacing: 0.5px;
         }
 
+        .web-link {
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin: 10px auto;
+        }
+
+        .web-link {
+            --border-width: 1px;
+            --radius: 25px;
+            position: relative;
+            border-radius: var(--radius);
+            border: var(--border-width) solid transparent;
+        }
+
+        .web-link::before {
+            content: " ";
+            position: absolute;
+            inset: calc(var(--border-width) * -1);
+            z-index: -1;
+            border: inherit;
+            border-radius: inherit;
+            background-image: conic-gradient(from var(--angle), #381D6A 80%, #E0D1FF 88%, #E0D1FF 92%, #381D6A 100%);
+            background-origin: border-box;
+            -webkit-mask:
+                linear-gradient(black, black) content-box,
+                linear-gradient(black, black);
+            mask: linear-gradient(black, black),
+                linear-gradient(black, black);
+            -webkit-mask-clip: content-box, border-box;
+            mask-clip: content-box, border-box;
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spin 3s linear infinite;
+        }
+
+        @supports not (background: paint(something)) {
+            .web-link::before {
+                background-image: conic-gradient(#381D6A 80%, #E0D1FF 88%, #E0D1FF 92%, #381D6A 100%);
+            }
+        }
+
+        .web-link:hover::before {
+            animation-play-state: paused;
+        }
+
+        @property --angle {
+            syntax: "<angle>";
+            inherits: true;
+            initial-value: 0turn;
+        }
+
+        @keyframes spin {
+            to {
+                --angle: 1turn;
+            }
+        }
+
+
+
         .highlight {
             color: #9d72ff;
         }
@@ -150,8 +213,7 @@
         }
 
         header .badge {
-            margin-bottom: 40px;
-            margin-top: 0;
+            margin: 20px auto;
         }
 
         header h1 {
@@ -247,43 +309,75 @@
             margin: 40px 0;
         }
 
+
+        
         /* COLOR PALETTE */
-        .color-palette {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin: 30px 0;
+        .color-category {
+            margin-bottom: 30px;
         }
 
-        .swatch {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
+        .color-category h4 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .swatch-container {
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 15px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .swatch-container:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .swatch-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .swatch-info {
+            flex: 1;
+        }
+
+        .swatch-name {
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.95rem;
+            margin-bottom: 3px;
+        }
+
+        .swatch-hex {
+            color: var(--text-muted);
             font-size: 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            font-family: 'Courier New', monospace;
+            margin-bottom: 3px;
         }
 
-        /* TYPOGRAPHY GRID */
-        .typography-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin: 40px 0;
-        }
-
-        @media (max-width: 768px) {
-            .typography-grid {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-        }
-
-        .typography-sample {
-            margin-top: 10px;
+        .swatch-desc {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            opacity: 0.8;
         }
 
         /* FEATURE BLOCKS */
@@ -379,12 +473,15 @@
 
     <header class="container">
         <div class="badge">Case Study</div>
-        <h1>SoZo:<br>The Social NFT Marketplace</h1>
+        <h1>SoZo<br>Social NFT Marketplace</h1>
         <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto; color: #aaa;">
-            A product design case study analyzing the visual hierarchy, design system, and strategic UX decisions behind
-            a community-driven Web3 platform.
+            Landing page for a social NFT Marketplace app.
         </p>
-
+        <div class="web-link">
+            <a href="https://5hcx2-3aaaa-aaaap-qho3q-cai.icp0.io/" target="_blank" rel="noopener noreferrer">
+                PREVIEW
+            </a>
+        </div>
         <div class="meta-grid">
             <div class="meta-item">
                 <h4>ROLE</h4>
@@ -435,23 +532,77 @@
         <section>
             <h2 class="section-title">2. Visual Design System</h2>
 
-            <h3>Color Palette</h3>
-            <p>The dark background with vibrant accent colors creates a premium, tech-forward aesthetic. This palette
-                positions SoZo as innovative while maintaining sophistication—crucial for a financial product.</p>
+            <h3>Color Palette & Usage</h3>
+            <p>The color system is designed to create visual hierarchy and enhance user experience while maintaining brand consistency.</p>
 
-            <div class="color-palette">
-                <div class="swatch" style="background: #0F1419;"><span>#0F1419</span></div>
-                <div class="swatch" style="background: #0066FF;"><span>#2C63C7</span></div>
+            <div class="color-category">
+                <h4>Primary Brand & Backgrounds</h4>
+                <div class="color-palette">
+                    <div class="swatch-container">
+                        <div class="swatch-circle" style="background: #3B82F6;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Electric Blue</div>
+                            <div class="swatch-hex">#3B82F6</div>
+                            <div class="swatch-desc">Primary brand color for main actions</div>
+                        </div>
+                    </div>
+                    <div class="swatch-container">
+                        <div class="swatch-circle" style="background: #8B5CF6;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Neon Purple</div>
+                            <div class="swatch-hex">#8B5CF6</div>
+                            <div class="swatch-desc">Secondary brand accent</div>
+                        </div>
+                    </div>
+                    <div class="swatch-container">
+                        <div class="swatch-circle" style="background: #D946EF;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Vibrant Magenta</div>
+                            <div class="swatch-hex">#D946EF</div>
+                            <div class="swatch-desc">Tertiary accent</div>
+                        </div>
+                    </div>
+                    <div class="swatch-container">
+                        <div class="swatch-circle" style="background: #050505;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Void Black</div>
+                            <div class="swatch-hex">#050505</div>
+                            <div class="swatch-desc">Background & text</div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-
-            <div class="typography-sample">
-                <h1 style="margin: 0;">Aa</h1>
-                <p style="margin-top: 10px; font-family: 'Poppins', sans-serif; font-weight: 700;">Headlines: Poppins
-                    (Bold 48-56px)</p>
-                <p style="font-family: 'Inter', sans-serif;">Body: Inter (Regular 16-18px). Chosen for accessibility,
-                    clarity, and professional credibility.</p>
+            <div class="color-category" style="margin-top: 30px;">
+                <h4>Functional & Accents</h4>
+                <div class="color-palette">
+                    <div class="swatch-container">
+                        <div class="swatch-circle" style="background: #14B8A6;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Cyber Teal</div>
+                            <div class="swatch-hex">#14B8A6</div>
+                            <div class="swatch-desc">Success states</div>
+                        </div>
+                    </div>
+                    <div class="swatch-container">
+                        <div class="swatch-circle" style="background: #4C1D95;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Deep Indigo</div>
+                            <div class="swatch-hex">#4C1D95</div>
+                            <div class="swatch-desc">Navigation elements</div>
+                        </div>
+                    </div>
+                    <div class="swatch-container">
+                        <div class="swatch-circle" style="background: #F97316;"></div>
+                        <div class="swatch-info">
+                            <div class="swatch-name">Sunset Orange</div>
+                            <div class="swatch-hex">#F97316</div>
+                            <div class="swatch-desc">Warning states</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </section>
 
         <section>
@@ -484,46 +635,14 @@
             <h2 class="section-title">4. Component Design</h2>
 
             <div class="image-placeholder">
-                <img src="pics/sozo6.jpg"/>
+                <img src="pics/sozo6.jpg" />
 
-            </div>
-            <div class="grid-2">
-                <div class="card">
-                    <h3>Interactive Buttons</h3>
-                    <p>Designed for high contrast and clarity.</p>
-                    <div style="margin-top: 20px;">
-                        <a href="#" class="btn-primary">Primary Action</a>
-                        <a href="#" class="btn-primary secondary">Secondary</a>
-                    </div>
-                    <p style="font-size: 0.85rem; margin-top: 15px; opacity: 0.7;">Primary: Electric Blue, rounded
-                        corners, hover glow.<br>Secondary: Outline style, lower visual weight.</p>
-                </div>
-                <div class="card">
-                    <h3>Feature Cards</h3>
-                    <p>Consistent dark background with subtle 1-2px borders. Uses a numbered badge system (01, 02, 03)
-                        to create visual rhythm and reading order.</p>
-                </div>
             </div>
         </section>
 
-        <section>
-            <h2 class="section-title">5. Visual Elements & Iconography</h2>
-
-            <div class="grid-2" style="margin-bottom: 30px;">
-
-            </div>
-
-            <p><strong>The Infinity Logo:</strong> The gradient infinity loop (blue → purple → orange) acts as the
-                primary brand mark and a metaphor for limitless possibilities.</p>
-
-
-            <p style="margin-top: 30px;"><strong>Imagery:</strong> We utilize 3D abstract geometric shapes (cubes,
-                torus, networking visuals) in warm palettes to contrast against the dark background, creating a sense of
-                innovation.</p>
-        </section>
 
         <section>
-            <h2 class="section-title">6. UX Patterns & User Journey</h2>
+            <h2 class="section-title">5. UX Patterns & User Journey</h2>
 
 
             <p>Despite the blockchain foundation, we prioritized <strong>Clarity over Complexity</strong>. We utilize
@@ -540,22 +659,9 @@
             </ul>
         </section>
 
-        <section>
-            <h2 class="section-title">7. Design System Consistency</h2>
-            <p>The site is built on a rigorous framework to ensure scalability across devices.</p>
-
-
-
-            <ul>
-                <li><strong>Grid:</strong> 12-column responsive grid.</li>
-                <li><strong>Spacing:</strong> 8px base unit (16px, 24px, 32px increments).</li>
-                <li><strong>Radius:</strong> 8-12px for medium elements, 16px for containers.</li>
-                <li><strong>Transparency:</strong> Semi-transparent overlays prevent visual heaviness.</li>
-            </ul>
-        </section>
 
         <section>
-            <h2 class="section-title">8. Analysis & Outcomes</h2>
+            <h2 class="section-title">6. Analysis & Outcomes</h2>
             <div class="grid-2">
                 <div class="card" style="border-color: rgba(0, 255, 0, 0.2);">
                     <h3 style="color: #fff;">Strengths</h3>

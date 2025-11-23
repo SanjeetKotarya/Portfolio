@@ -31,7 +31,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        /* Typography: Use Playfair Display for headings/titles */
         h1,
         h2,
         h3,
@@ -64,8 +63,7 @@
 
         /* --- Header/Hero Section --- */
         header {
-            margin-top: 40px;
-            margin-bottom: 80px;
+            margin: 80px auto;
         }
 
         h1.main-title {
@@ -489,37 +487,29 @@
         .tab-btn {
             background: none;
             border: none;
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.7);
             font-size: 1.1rem;
-            padding: 10px 0;
+            padding: 8px;
+            margin: 0 5px;
             cursor: pointer;
             position: relative;
             transition: all 0.3s ease;
             text-decoration: none;
             outline: none;
+            border-radius: 6px;
             border-bottom: 2px solid transparent;
         }
 
         .tab-btn.active {
             color: #ffffff;
-            font-weight: 500;
-            border-bottom: 2px solid transparent;
+            border-bottom: 2px solid var(--accent-purple, #4D16BE);
         }
 
         .tab-btn:hover {
-            color: #ffffff;
-            opacity: 0.9;
+            border-bottom: 2px solid var(--accent-purple, #4D16BE);
         }
 
-        /* Remove any potential underline from buttons */
-        button.tab-btn,
-        button.tab-btn:active,
-        button.tab-btn:focus,
-        button.tab-btn:visited {
-            text-decoration: none;
-            outline: none;
-            border-bottom: 2px solid transparent;
-        }
+
 
         /* Content Grid */
         .tab-content-area {
@@ -1105,8 +1095,7 @@
                     <div class="card-visuals">
                         <img src="pics/sozo1.png" alt="work visual 1" class="v1" />
                     </div>
-                    <div class="bubble-text">I made this website for Institute webops club of Indian Institute of
-                        Technology Madras.</div>
+                    <div class="bubble-text">Landing page for a social NFT Marketplace app, SoZo.</div>
                     <div class="bubble-footer">
                         <span class="brand">SoZo</span>
                         <span class="tags">NFT Space</span>
@@ -1152,7 +1141,7 @@
             <div class="tabs-nav">
                 <button class="tab-btn active" data-target="website-designs">Website Designs</button>
                 <button class="tab-btn" data-target="artworks">Artworks</button>
-                <button class="tab-btn" data-target="3d-modeling">3D Modeling & Animation</button>
+                <button class="tab-btn" data-target="motion">Motion Graphics</button>
             </div>
 
             <div id="website-designs" class="tab-content-area active">
@@ -1163,7 +1152,6 @@
                         <p class="card-subtitle">Personal Project</p>
                         <div class="card-tags"><span class="tag ux">UI/UX</span><span class="tag web">Tool</span>
                         </div>
-                        <p class="card-date">June 2024 - Dec 2024</p>
                     </div>
                 </a>
                 <a href="holoCase.html" class="project-card">
@@ -1172,18 +1160,16 @@
                         <h3 class="card-title">HoloGraph Visualization</h3>
                         <p class="card-subtitle">Dual Degree Project</p>
                         <div class="card-tags"><span class="tag ddp">DDP</span><span class="tag">3D</span></div>
-                        <p class="card-date">Jun 2025 - Present</p>
                     </div>
                 </a>
-                <a href="holoCase.html" class="project-card">
-                    <img src="pics/pvs.jpg" alt="pvc" class="card-image">
+                <a href="webopsCase.html" class="project-card">
+                    <img src="pics/webop.jpg" alt="webops" class="card-image">
                     <div class="card-content">
-                        <h3 class="card-title"> Plotly Visualization Suite</h3>
-                        <p class="card-subtitle">Personal Project</p>
-                        <div class="card-tags"><span class="tag ddp">UI/UX</span><span class="tag">Tool</span></div>
-                        <p class="card-date">N/A</p>
+                        <h3 class="card-title">Webops Club Website</h3>
+                        <p class="card-subtitle">Club Project</p>
+                        <div class="card-tags"><span class="tag ddp">Website</span><span class="tag">Product</span></div>
                     </div>
-                </a>                
+                </a>               
             </div>
 
             <div id="artworks" class="tab-content-area">
@@ -1207,11 +1193,11 @@
                 </a>                                
             </div>
 
-            <div id="3d-modeling" class="tab-content-area">
-                <a href="blend.html" class="project-card">
-                    <img src="https://via.placeholder.com/400x225/222/FFF?text=3D+Render" class="card-image">
+            <div id="motion" class="tab-content-area">
+                <a href="motion.html" class="project-card">
+                    <img src="pics/motion.jpg" class="card-image">
                     <div class="card-content">
-                        <h3 class="card-title">Blender Models</h3>
+                        <h3 class="card-title">Motion Graphics</h3>
                     </div>
                 </a>
             </div>
