@@ -49,7 +49,7 @@
             background-color: var(--bg-main);
             color: var(--text-primary);
             line-height: 1.6;
-            padding: 20px;
+            padding: 0 20px 0 20px;
         }
 
         /* --- Container --- */
@@ -58,12 +58,20 @@
             max-width: 1400px;
             /* Increased width to fit side-by-side layout better */
             margin: 0 auto;
-            padding: 0 20px;
+
+        }
+
+
+
+        .intro-text h1 {
+            line-height: 1.2;
+            margin-bottom: 10px;
         }
 
         /* --- Header/Hero Section --- */
         header {
-            margin: 80px auto;
+            margin-top: 40px;
+
         }
 
         h1.main-title {
@@ -100,7 +108,7 @@
 
         .intro-text p {
             color: var(--text-secondary);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-size: 1rem;
             max-width: 90%;
         }
@@ -117,12 +125,6 @@
             max-width: 320px;
         }
 
-        /* 3. RIGHT: Sidebar (UPDATED: SIDE BY SIDE) */
-        .right-sidebar-container {
-            display: flex;
-            gap: 30px;
-            /* Space between Tools and Social */
-        }
 
         /* Tools Column */
         .tools-section {
@@ -144,10 +146,10 @@
 
         /* Tool Items (Pills) */
         .skill-item {
-            margin-bottom: 12px;
+
             background: var(--bg-card);
             /* Dark card background */
-            padding: 10px 15px;
+            padding: 10px;
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -204,7 +206,7 @@
 
         /* --- Featured Work Teaser Section --- */
         .featured-section {
-            margin-top: 80px;
+            margin-top: 50px;
         }
 
         .featured-header h2 {
@@ -249,13 +251,7 @@
                 border-radius: 24px;
             }
 
-            .bubble-card .card-visuals img {
-                left: 20px;
-                right: 20px;
-                width: calc(100% - 40px);
-                height: 100%;
-                object-fit: contain;
-            }
+
         }
 
         /* Bubble Card */
@@ -274,7 +270,6 @@
         @media (max-width: 768px) {
             .bubble-card {
                 height: 280px;
-                margin-bottom: 30px;
             }
 
             .card-image {
@@ -289,9 +284,7 @@
                 font-size: 2rem;
             }
 
-            .featured-header p {
-                font-size: 1rem;
-            }
+
         }
 
         .bubble-card .card-visuals img {
@@ -464,7 +457,7 @@
         }
 
         .section-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
             margin-bottom: 20px;
             border-bottom: 1px solid #333;
             padding-bottom: 10px;
@@ -568,9 +561,9 @@
             flex-direction: column;
         }
 
-.card-content h3 {
-    color: white;
-}
+        .card-content h3 {
+            color: white;
+        }
 
 
         .card-title {
@@ -588,8 +581,6 @@
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
-            margin-top: auto;
-            margin-bottom: 15px;
         }
 
         .tag {
@@ -623,20 +614,19 @@
 
         /* Story Section */
         .story-section {
-            margin-top: 90px;
-            padding: 60px 0;
+            margin-top: 30px;
+
             margin: 0 auto;
         }
 
         .story-title-area {
-            margin-bottom: 40px;
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
         .story-title-area h2 {
-            font-size: 2.2rem;
+            font-size: 2rem;
         }
 
         .story-title-area p {
@@ -657,6 +647,7 @@
             gap: 20px;
             flex-wrap: wrap;
             justify-content: center;
+            margin: 10px auto;
         }
 
         .photo-card {
@@ -697,7 +688,7 @@
         }
 
         .contact-section h2 {
-            font-size: 1.6rem;
+            font-size: 2rem;
             margin-bottom: 10px;
         }
 
@@ -718,6 +709,8 @@
             letter-spacing: 0.05em;
             color: var(--text-secondary);
             margin-bottom: 6px;
+            color: #4D16BE;
+            font-weight: 600;
         }
 
         .contact-value a,
@@ -750,11 +743,11 @@
             text-decoration: none;
             background-color: transparent;
             transition: background 0.3s ease, border-color 0.3s ease;
+            font-size: 0.8rem;
         }
 
         .contact-social a:hover {
-            background-color: var(--bg-card);
-            border-color: var(--text-secondary);
+            border-color: #6b6b6b;
         }
 
         .contact-social svg {
@@ -801,16 +794,20 @@
 
         .pf-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
+            background: var(--bg-card);
+            border: 1px solid #222;
             width: 100%;
             max-width: 1000px;
             gap: 40px;
+            text-align: center;
+            border-radius: 16px;
         }
 
         .pf-grid-item {
             padding: 25px 0;
             border-bottom: 1px dashed #333;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 400;
             color: var(--text-secondary);
             transition: color 0.2s;
@@ -979,9 +976,14 @@
 
         /* Responsive */
         @media (max-width: 768px) {
-            .pf-title {
-                font-size: 2.5rem;
+
+
+            .tab-btn {
+                background: none;
+                font-size: 0.9rem;
+                padding: 5px;
             }
+
 
             .pf-grid {
                 gap: 5px;
@@ -998,7 +1000,6 @@
 
             .container {
                 width: 100%;
-                padding: 10px;
             }
 
             .featured-side {
@@ -1006,6 +1007,7 @@
             }
 
             .tools-section {
+
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -1014,9 +1016,26 @@
                 bottom: 5px;
             }
 
+            .intro-text {
+                text-align: center;
+                align-items: center;
+                margin: 0 auto;
+            }
+
+            .bubble-card .card-visuals img {
+                width: 100%;
+                left: 0;
+            }
+
+        .photo-card img {
+            width: 90%;
+            height: auto;
+            object-fit: cover;
+        }
 
         }
-        a{
+
+        a {
             text-decoration: none;
         }
     </style>
@@ -1029,31 +1048,34 @@
             <div class="hero-grid">
                 <div class="intro-text">
                     <p style="color: #CB9434;">Hi, I'm Sanjeet Kotarya</p>
-                    <h1>UI/UX & Product Designer<br>you can count on</h1>
+                    <h1>UI/UX & Product Designer</h1>
                     <p>Simplicity is my superpower. I turn complex ideas into experiences users love. I focus on
                         clarity, usability, and creating interfaces that bridge the gap between user needs and business
-                        goals</p>
+                        goals.</p>
                     <button class="cta-button"><a href="#contact">Contact me</a></button>
                 </div>
                 <div class="hero-image-container">
                     <img src="me2.png" alt="Sanjeet Kotarya" class="hero-image">
                 </div>
                 <div class="right-sidebar-container">
+                    <h3>Tools & Software</h3>
                     <div class="tools-section">
-                        <h3>Tools & Software</h3>
                         <div class="skill-item"><img class="skill-icon" src="icon/fig.png" alt="Figma icon"> Figma
                             (7/10)
                         </div>
+                        <div class="skill-item"><img class="skill-icon" src="icon/ae.png" alt="After Effects icon">
+                            After Effects (6/10)
+                        </div>
                         <div class="skill-item"><img class="skill-icon" src="icon/jam.png" alt="FigJam icon"> FigJam
-                            (5/10)</div>
+                            (5/10)
+                        </div>
                         <div class="skill-item"><img class="skill-icon" src="icon/ble.png" alt="Blender icon"> Blender
-                            (9/10)</div>
-                        <div class="skill-item"><img class="skill-icon" src="icon/ai.png" alt="Adobe Illustrator icon">
-                            Adobe
-                            Illustrator (9/10)</div>
-                        <div class="skill-item"><img class="skill-icon" src="icon/ae.png"
-                                alt="Adobe After Effects icon"> Adobe After
-                            Effects (4/10)</div>
+                            (9/10)
+                        </div>
+                        <div class="skill-item"><img class="skill-icon" src="icon/ai.png" alt="Illustrator icon">
+                            Illustrator (9/10)
+                        </div>
+
                     </div>
                 </div>
 
@@ -1122,8 +1144,8 @@
                     <div class="card-visuals">
                         <img src="pics/fresh1.png" alt="work visual 1" class="v1" />
                     </div>
-                    <div class="bubble-text">Made this website for freshers. This website serves as a comprehensive
-                        platform to give you information about everything at IIT Madras.</div>
+                    <div class="bubble-text">Made this website during my tenure in webops club, it's like a guide to
+                        freshers at IITM.</div>
                     <div class="bubble-footer">
                         <span class="brand">Freshers-iitm</span>
                         <span class="tags">IITM</span>
@@ -1167,9 +1189,10 @@
                     <div class="card-content">
                         <h3 class="card-title">Webops Club Website</h3>
                         <p class="card-subtitle">Club Project</p>
-                        <div class="card-tags"><span class="tag ddp">Website</span><span class="tag">Product</span></div>
+                        <div class="card-tags"><span class="tag ddp">Website</span><span class="tag">Product</span>
+                        </div>
                     </div>
-                </a>               
+                </a>
             </div>
 
             <div id="artworks" class="tab-content-area">
@@ -1190,7 +1213,7 @@
                     <div class="card-content">
                         <h3 class="card-title">Paintings & Sketches</h3>
                     </div>
-                </a>                                
+                </a>
             </div>
 
             <div id="motion" class="tab-content-area">
@@ -1237,13 +1260,10 @@
                     <div class="pf-grid-item" style="border-bottom: none;">Visual identity</div>
                 </div>
                 <div class="pf-grid-col">
-                    <div class="pf-grid-item">Framer</div>
+                    <div class="pf-grid-item">Websites / Apps</div>
                     <div class="pf-grid-item" style="border-bottom: none;">Iconography</div>
                 </div>
-                <div class="pf-grid-col">
-                    <div class="pf-grid-item">Websites / Apps</div>
-                    <div class="pf-grid-item" style="border-bottom: none;">Midjourney</div>
-                </div>
+
             </div>
         </div>
 
