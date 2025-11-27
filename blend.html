@@ -1,135 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>3D Model Portfolio | Sanjeet Kotarya</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-color: #191919;
-        color: #ffffff;
-        font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        padding: 0;
-        overflow-x: hidden;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Model Portfolio | Sanjeet Kotarya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+    rel="stylesheet" />
+  <style>
+    body {
+      background-color: #191919;
+      color: #ffffff;
+      font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 10px auto;
+      padding: 0 20px;
+    }
+
+    .header {
+      text-align: center;
+    }
+
+    .header h1 {
+      font-family: "Playfair Display", serif;
+      font-weight: 600;
+      font-size: 2em;
+      color: #ffffff;
+    }
+
+    .header p {
+      color: #ccc;
+      font-size: 1.1em;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 0 auto;
+    }
+
+    .model-card {
+      border-radius: 12px;
+      border: solid 1px #484848;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .model-container {
+      position: relative;
+      width: 100%;
+      height: 350px;
+      overflow: hidden;
+      border: 1px solid #282828;
+      border-radius: 12px 12px 0 0;
+    }
+
+    .model-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    .model-info {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .model-info h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2em;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .model-info p {
+      margin: 0;
+      color: #aaa;
+      font-size: 0.9em;
+      line-height: 1.5;
+    }
+
+    .loading {
+      color: #aaa;
+      font-size: 0.95em;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    @media (max-width: 1024px) {
+      .gallery {
+        grid-template-columns: repeat(2, minmax(220px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .gallery {
+        grid-template-columns: 1fr;
       }
 
-      .container {
-            max-width: 1000px;
-            margin: 10px auto;
-            padding: 0 20px;
-        }
-      .header {
-        text-align: center;
-      }
       .header h1 {
-        font-family: "Playfair Display", serif;
-        font-weight: 600;
         font-size: 2em;
-        color: #ffffff;
       }
+    }
+
+    @media (max-width: 480px) {
+      .gallery {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+      }
+
+      .header {
+        padding: 1.5rem 1rem;
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+      }
+
       .header p {
-        color: #ccc;
-        font-size: 1.1em;
-        max-width: 800px;
-        margin: 0 auto;
-        line-height: 1.6;
+        font-size: 1em;
       }
-        .gallery {
-         display: grid;
-         grid-template-columns: repeat(2, minmax(300px, 1fr));
-         gap: 24px;
-         padding: 20px;
-         margin: 0 auto;
-       }
-      .model-card {
-        border-radius: 12px;
-        border: solid 1px #484848;
-        overflow: hidden;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-      .model-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-      }
-      .model-container {
-        position: relative;
-        width: 100%;
-        height: 300px;
-        overflow: hidden;
-        background: #111;
-        border: 1px solid #333;
-        border-radius: 12px 12px 0 0;
-      }
-      .model-container iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-        display: block;
-      }
-      .model-info {
-        padding: 10px ;
-        text-align: center;
-      }
-      .model-info h3 {
-        margin: 0 0 0.5rem;
-        font-size: 1.2em;
-        font-weight: 600;
-        color: #ffffff;
-      }
-      .model-info p {
-        margin: 0;
-        color: #aaa;
-        font-size: 0.9em;
-        line-height: 1.5;
-      }
-      .loading {
-        color: #aaa;
-        font-size: 0.95em;
-        text-align: center;
-        padding: 0 1rem;
-      }
-        @media (max-width: 1024px) {
-          .gallery {
-            grid-template-columns: repeat(2, minmax(220px, 1fr));
-          }
-        }
-        @media (max-width: 768px) {
-          .gallery {
-            grid-template-columns: 1fr;
-            padding: 15px;
-          }
-          .header h1 {
-            font-size: 2em;
-          }
-        }
-        @media (max-width: 480px) {
-          .gallery {
-            grid-template-columns: 1fr;
-            padding: 10px;
-            max-width: 100%;
-          }
-          .header {
-            padding: 1.5rem 1rem;
-          }
-          .header h1 {
-            font-size: 1.8em;
-          }
-          .header p {
-            font-size: 1em;
-          }
-        }
-    </style>
-  </head>
-  <body>
-    <script id="navbar" src="nav.js"></script>
-<div class="container">
+    }
+  </style>
+</head>
+
+<body>
+  <script id="navbar" src="nav.js"></script>
+  <div class="container">
     <div class="header">
       <h1>3D Model & Animation</h1>
     </div>
@@ -137,84 +148,64 @@
     <div class="gallery">
       <!-- Model 1 -->
       <div class="model-card">
-        <div
-          id="model1"
-          class="model-container"
-          data-embed="https://sketchfab.com/models/105bd84a0470480a8bb8eb59581efbfd/embed"
-        ></div>
+        <div id="model1" class="model-container"
+          data-embed="https://sketchfab.com/models/105bd84a0470480a8bb8eb59581efbfd/embed"></div>
       </div>
       <!-- Model 2 -->
       <div class="model-card">
-        <div
-          id="model2"
-          class="model-container"
-          data-embed="https://sketchfab.com/models/2ff00c0386824516932c2476ad27bd88/embed"
-        ></div>
+        <div id="model2" class="model-container"
+          data-embed="https://sketchfab.com/models/2ff00c0386824516932c2476ad27bd88/embed"></div>
       </div>
 
       <div class="model-card">
-        <div
-          id="model7"
-          class="model-container"
-          data-embed="https://sketchfab.com/models/6838b97760674edbbe39228e5b0991de/embed"
-        ></div>
+        <div id="model7" class="model-container"
+          data-embed="https://sketchfab.com/models/6838b97760674edbbe39228e5b0991de/embed"></div>
       </div>
 
       <!-- Model 3 -->
       <div class="model-card">
-        <div
-          id="model3"
-          class="model-container"
-          data-embed="https://sketchfab.com/models/59b61734dcb54c2991e84e7d41e7d5e4/embed"
-        ></div>
+        <div id="model3" class="model-container"
+          data-embed="https://sketchfab.com/models/59b61734dcb54c2991e84e7d41e7d5e4/embed"></div>
       </div>
       <!-- Model 4 -->
       <div class="model-card">
-        <div
-          id="model4"
-          class="model-container"
-          data-embed="https://sketchfab.com/models/33cabe8da4bb451f8999eba1493f265c/embed"
-        ></div>
+        <div id="model4" class="model-container"
+          data-embed="https://sketchfab.com/models/33cabe8da4bb451f8999eba1493f265c/embed"></div>
       </div>
 
       <!-- Model 5 -->
       <div class="model-card">
-        <div
-          id="model5"
-          class="model-container"
-          data-embed="https://sketchfab.com/models/cd99274654804faaa8f21fa6dd6ef679/embed"
-        ></div>
+        <div id="model5" class="model-container"
+          data-embed="https://sketchfab.com/models/cd99274654804faaa8f21fa6dd6ef679/embed"></div>
       </div>
       <!-- Model 6 -->
       <div class="model-card">
-        <div
-          id="model6"
-          class="model-container"
-          data-embed="https://sketchfab.com/models/38df24d1f3d04201bd92bc4c105549eb/embed"
-        ></div>
+        <div id="model6" class="model-container"
+          data-embed="https://sketchfab.com/models/38df24d1f3d04201bd92bc4c105549eb/embed"></div>
       </div>
 
     </div>
-</div>
-    <script>
-      // Initialize gallery on load
-      document.addEventListener("DOMContentLoaded", () => {
-        const containers = document.querySelectorAll(".model-container");
-        containers.forEach((container) => {
-          const embedUrl = container.dataset.embed;
-          if (embedUrl) {
-            // Create iframe directly
-            const iframe = document.createElement("iframe");
-            iframe.src = embedUrl;
-            iframe.style.width = "100%";
-            iframe.style.height = "100%";
-            iframe.style.border = "none";
-            iframe.allow = "autoplay; fullscreen; xr-spatial-tracking";
-            iframe.allowFullscreen = true;
-            container.appendChild(iframe);
-          }
-        });
+  </div>
+  <script>
+    // Initialize gallery on load
+    document.addEventListener("DOMContentLoaded", () => {
+      const containers = document.querySelectorAll(".model-container");
+      containers.forEach((container) => {
+        const embedUrl = container.dataset.embed;
+        if (embedUrl) {
+          // Create iframe directly
+          const iframe = document.createElement("iframe");
+          iframe.src = embedUrl;
+          iframe.style.width = "100%";
+          iframe.style.height = "100%";
+          iframe.style.border = "none";
+          iframe.allow = "autoplay; fullscreen; xr-spatial-tracking";
+          iframe.allowFullscreen = true;
+          container.appendChild(iframe);
+        }
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
+
 </html>

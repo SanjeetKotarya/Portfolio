@@ -368,14 +368,115 @@
                 padding: 25px;
                 margin-bottom: 25px;
             }
-        .slideshow-container {
-            min-height: 250px;
-        }
+
+            .slideshow-container {
+                min-height: 250px;
+            }
+
             .slides {
                 min-height: 100px;
             }
         }
+
+
+        .web-link {
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            margin: 10px auto;
+        }
+
+        .web-link {
+            --border-width: 1px;
+            --radius: 25px;
+            position: relative;
+            border-radius: var(--radius);
+            border: var(--border-width) solid transparent;
+        }
+
+        .web-link {
+            animation: shake 0.5s infinite linear;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translate(0px, 0px) rotate(0deg);
+            }
+
+            20% {
+                transform: translate(-2px, 2px) rotate(-2deg);
+            }
+
+            40% {
+                transform: translate(2px, -2px) rotate(2deg);
+            }
+
+            60% {
+                transform: translate(-2px, -2px) rotate(0deg);
+            }
+
+            80% {
+                transform: translate(2px, 2px) rotate(2deg);
+            }
+
+            100% {
+                transform: translate(0px, 0px) rotate(0deg);
+            }
+        }
+
+        .web-link::before {
+            content: " ";
+            position: absolute;
+            inset: calc(var(--border-width) * -1);
+            z-index: -1;
+            border: inherit;
+            border-radius: inherit;
+            background-image: conic-gradient(from var(--angle), #381D6A 80%, #E0D1FF 88%, #E0D1FF 92%, #381D6A 100%);
+            background-origin: border-box;
+            -webkit-mask:
+                linear-gradient(black, black) content-box,
+                linear-gradient(black, black);
+            mask: linear-gradient(black, black),
+                linear-gradient(black, black);
+            -webkit-mask-clip: content-box, border-box;
+            mask-clip: content-box, border-box;
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spin 3s linear infinite;
+        }
+
+        @supports not (background: paint(something)) {
+            .web-link::before {
+                background-image: conic-gradient(#381D6A 80%, #E0D1FF 88%, #E0D1FF 92%, #381D6A 100%);
+            }
+        }
+
+        .web-link:hover::before {
+            animation-play-state: paused;
+        }
+
+        @property --angle {
+            syntax: "<angle>";
+            inherits: true;
+            initial-value: 0turn;
+        }
+
+        @keyframes spin {
+            to {
+                --angle: 1turn;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--text-main);
+        }
     </style>
+
+
 </head>
 
 <body>
@@ -387,7 +488,11 @@
             <p>An interactive 3D data visualization tool designed to help users easily plot mathematical equations and
                 explore data functions in real-time. This project combines technical innovation with intuitive design to
                 make complex 3D visualization accessible to everyone.</p>
-
+            <div class="web-link">
+                <a href="https://sanjeetkotarya.github.io/HoloGraph/" target="_blank" rel="noopener noreferrer">
+                    PREVIEW
+                </a>
+            </div>
             <div class="slideshow-container">
                 <div class="slides">
                     <div class="slide active">
